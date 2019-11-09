@@ -24,3 +24,9 @@ application {
     // Define the main class for the application
     mainClassName = 'server.MyGameServer'
 }
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'server.MyGameClient'
+    }
+}
