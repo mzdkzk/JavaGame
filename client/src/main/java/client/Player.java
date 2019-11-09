@@ -6,7 +6,9 @@ import java.awt.image.BufferedImage;
 
 public class Player extends Sprite {
     private double dx;
+    private final double MAX_DX = 10;
     private double dy;
+    private final double MAX_DY = 10;
     private double angle;
     private double moveSpeed = 1.0;
 
@@ -50,9 +52,14 @@ public class Player extends Sprite {
         if (controller.isDown(KeyEvent.VK_S)) {
             dy += moveSpeed;
         }
+        if (Math.abs(dx) >= MAX_DX) dx = MAX_DX * Math.signum(dx);
+        if (Math.abs(dy) >= MAX_DY) dy = MAX_DY* Math.signum(dy);
         dx = (Math.abs(dx) - moveSpeed / 2) * Math.signum(dx);
         dy = (Math.abs(dy) - moveSpeed / 2) * Math.signum(dy);
         move();
+        GameLogger.update("player.worldPos", "wx=" + getX() + ",wy=" + getY());
+        GameLogger.update("player.cameraPos", "cx=" + getRelativePos().x + ",cy=" + getRelativePos().y);
+        GameLogger.update("player.velocity", "dx=" + dx + ",dy=" + dy);
 
         // TODO: 左クリックへの置き換え
         if (controller.isDown(KeyEvent.VK_SPACE)) {

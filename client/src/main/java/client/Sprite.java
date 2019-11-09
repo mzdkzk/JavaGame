@@ -10,6 +10,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 public abstract class Sprite implements Updatable {
+    // TODO: 可能な限りintにする
     protected double x;
     protected double y;
     protected double width;
@@ -55,6 +56,14 @@ public abstract class Sprite implements Updatable {
 
     public int getY() {
         return (int)y;
+    }
+
+    public int getWidth() {
+        return (int)width;
+    }
+
+    public int getHeight() {
+        return (int)height;
     }
 
     public Point getRelativePos() {

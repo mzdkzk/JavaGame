@@ -21,6 +21,9 @@ class GameCamera implements Updatable {
 
     @Override
     public void update(GameController controller) {
-        pos.move(GameManager.player.getX(), GameManager.player.getY());
+        Player player = GameManager.player;
+        int x = player.getX() - width / 2 + player.getWidth() / 2;
+        int y = player.getY() - height / 2 + player.getHeight() / 2;
+        pos.move(x, y);
     }
 }
