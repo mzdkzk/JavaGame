@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class Beam extends Sprite {
     private double angle;
-    private double moveSpeed = 2.0;
+    private double moveSpeed = 30.0;
 
     Beam(Player from) {
         super("missile.png",

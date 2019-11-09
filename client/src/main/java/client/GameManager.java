@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GameManager extends JPanel implements ActionListener {
     private GameController controller = new GameController();
@@ -21,6 +22,12 @@ public class GameManager extends JPanel implements ActionListener {
 
         setBackground(Color.BLACK);
 
+        Random r = new Random();
+        for (int i = 0; i < 100; i++) {
+            int x = r.nextInt(1000) - 500;
+            int y = r.nextInt(1000) - 500;
+            addChild(new Star(x, y));
+        }
         addChild(camera);
         addChild(player);
 
