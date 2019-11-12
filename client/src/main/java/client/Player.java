@@ -3,6 +3,7 @@ package client;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.PrintWriter;
 
 public class Player extends Sprite {
     private double dx;
@@ -36,6 +37,14 @@ public class Player extends Sprite {
     private void move() {
         x += dx;
         y += dy;
+        if (Math.abs(dx) > 0 || Math.abs(dy) > 0) {
+            MyGameClient.send(new Event(EventType.move, getX(), getY()));
+        }
+    }
+
+    @Override
+    public void start() {
+        MyGameClient.send(new Event(EventType.show, getX(), getY()));
     }
 
     @Override
@@ -53,7 +62,7 @@ public class Player extends Sprite {
             dy += moveSpeed;
         }
         if (Math.abs(dx) >= MAX_DX) dx = MAX_DX * Math.signum(dx);
-        if (Math.abs(dy) >= MAX_DY) dy = MAX_DY* Math.signum(dy);
+        if (Math.abs(dy) >= MAX_DY) dy = MAX_DY * Math.signum(dy);
         dx = (Math.abs(dx) - moveSpeed / 2) * Math.signum(dx);
         dy = (Math.abs(dy) - moveSpeed / 2) * Math.signum(dy);
         move();

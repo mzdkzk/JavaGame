@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import javax.imageio.ImageIO;
 
-public abstract class Sprite implements Updatable {
+public abstract class Sprite extends Updatable {
     // TODO: 可能な限りintにする
     protected double x;
     protected double y;

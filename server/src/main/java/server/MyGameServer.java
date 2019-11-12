@@ -61,7 +61,7 @@ class ClientThread extends Thread {
 
     public void run() {
         try {
-            writer.println("[Server]id: " + id + "のスレッドが開始されました");
+            writer.println(id);
 
             while (true) { //ソケットへの入力を監視する
                 String str = reader.readLine();

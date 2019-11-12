@@ -21,13 +21,14 @@ public class GameManager extends JPanel implements ActionListener {
         setFocusable(true);
 
         setBackground(Color.BLACK);
-
+/*
         Random r = new Random();
         for (int i = 0; i < 100; i++) {
             int x = r.nextInt(1000) - 500;
             int y = r.nextInt(1000) - 500;
             addChild(new Star(x, y));
         }
+*/
         addChild(camera);
         addChild(player);
 
@@ -57,6 +58,11 @@ public class GameManager extends JPanel implements ActionListener {
 
     private void drawObjects(Graphics g) {
         for (Updatable child : children) {
+            if (!child.started) {
+                child.started = true;
+                child.start();
+            }
+
             if (child instanceof Sprite) {
                 Sprite sprite = (Sprite)child;
                 Point relativePos = camera.toRelativePos(sprite.getX(), sprite.getY());

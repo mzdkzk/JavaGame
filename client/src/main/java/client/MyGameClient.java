@@ -10,20 +10,37 @@ public class MyGameClient extends JFrame {
     private static Socket socket;
     private static PrintWriter writer;
     private static BufferedReader reader;
+    public static int userId;
 
-    static PrintWriter getWriter() throws IOException {
+    private static PrintWriter getWriter() {
         if (writer == null) {
-            writer = new PrintWriter(socket.getOutputStream(), true);
+            try {
+                writer = new PrintWriter(socket.getOutputStream(), true);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return writer;
     }
 
-    static BufferedReader getReader() throws IOException {
+    static void send(Object s) {
+        MyGameClient.getWriter().println(s);
+    }
+
+    static BufferedReader getReader() {
         if (reader == null) {
-            InputStreamReader streamReader = new InputStreamReader(socket.getInputStream());
-            reader = new BufferedReader((streamReader));
+            try {
+                InputStreamReader streamReader = new InputStreamReader(socket.getInputStream());
+                reader = new BufferedReader(streamReader);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return reader;
+    }
+
+    static String readLine() throws IOException {
+        return MyGameClient.getReader().readLine();
     }
 
     static void closeSocket() throws IOException {
@@ -31,6 +48,8 @@ public class MyGameClient extends JFrame {
     }
 
     private MyGameClient() {
+        connectServer();
+
         GameManager game = new GameManager();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,8 +58,6 @@ public class MyGameClient extends JFrame {
 
         Container container = getContentPane(); //フレームのペインを取得する
         container.add(game);
-
-        connectServer();
     }
 
     private void connectServer() {
@@ -63,10 +80,9 @@ public class MyGameClient extends JFrame {
 class LocalClientThread extends Thread {
     public void run() {
         try {
-            BufferedReader bufferedReader = MyGameClient.getReader();
-            PrintWriter printWriter = MyGameClient.getWriter();
+            MyGameClient.userId = Integer.parseInt(MyGameClient.readLine());
             while (true) {
-                String inputLine = bufferedReader.readLine();
+                String inputLine = MyGameClient.readLine();
                 if (inputLine != null) {
                     System.out.println(inputLine);
                 } else {

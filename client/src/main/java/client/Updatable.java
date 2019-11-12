@@ -1,5 +1,7 @@
 package client;
 
-public interface Updatable {
-    void update(GameController controller);
+abstract class Updatable {
+    protected boolean started = false;
+    abstract void start();
+    abstract void update(GameController controller);
 }
