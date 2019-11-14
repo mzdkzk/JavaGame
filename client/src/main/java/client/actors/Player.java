@@ -10,14 +10,12 @@ import client.game.logging.Logger;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 
 public class Player extends Sprite {
     private double dx;
     private final double MAX_DX = 10;
     private double dy;
     private final double MAX_DY = 10;
-    private double angle;
     private double moveSpeed = 1.0;
 
     public Player(int x, int y) {
@@ -26,19 +24,6 @@ public class Player extends Sprite {
 
     private void fire() {
         Game.addChild(new Beam(this));
-    }
-
-    double getDegree() {
-        return angle * 180d / Math.PI;
-    }
-
-    double getAngle() {
-        return angle;
-    }
-
-    @Override
-    public BufferedImage getImage() {
-        return this.getRotatedImage(angle);
     }
 
     private void move() {

@@ -3,20 +3,10 @@ package client.actors;
 import client.actors.base.Sprite;
 import client.event.Event;
 
-import java.awt.image.BufferedImage;
-
 public class OtherPlayer extends Sprite {
-    // TODO: PlayerまたはSpriteへの共通化の検討
-    double angle;
-    boolean isActive = true;
 
     public OtherPlayer(int x, int y) {
         super("craft.png", x, y);
-    }
-
-    @Override
-    public BufferedImage getImage() {
-        return getRotatedImage(angle);
     }
 
     public void move(Event event) {

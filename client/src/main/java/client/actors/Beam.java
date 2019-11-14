@@ -2,10 +2,7 @@ package client.actors;
 
 import client.actors.base.Sprite;
 
-import java.awt.image.BufferedImage;
-
 public class Beam extends Sprite {
-    private double angle;
     private double moveSpeed = 30.0;
 
     public Beam(Player from) {
@@ -25,10 +22,5 @@ public class Beam extends Sprite {
     public void update() {
         this.x += Math.cos(angle) * moveSpeed;
         this.y += Math.sin(angle) * moveSpeed;
-    }
-
-    @Override
-    public BufferedImage getImage() {
-        return getRotatedImage(angle);
     }
 }

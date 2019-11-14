@@ -11,13 +11,13 @@ import java.io.IOException;
 import java.net.URL;
 
 public abstract class Sprite extends Updatable {
-    // TODO: 可能な限りintにする
-    protected double x;
-    protected double y;
-    protected double width;
-    protected double height;
-    protected boolean visible;
-    protected BufferedImage image;
+    protected int x;
+    protected int y;
+    protected double angle;
+    private int width;
+    private int height;
+    private boolean visible;
+    private BufferedImage image;
 
     public Sprite(String imagePath, int x, int y) {
         this.x = x;
@@ -30,7 +30,7 @@ public abstract class Sprite extends Updatable {
         visible = true;
     }
 
-    protected void loadImage(String path) throws IOException {
+    private void loadImage(String path) throws IOException {
         URL url = getClass().getClassLoader().getResource(path);
         image = ImageIO.read(url);
         width = image.getWidth(null);
@@ -38,10 +38,13 @@ public abstract class Sprite extends Updatable {
     }
 
     public BufferedImage getImage() {
-        return image;
+        if (angle == 0.0) {
+            return image;
+        }
+        return getRotatedImage();
     }
 
-    public BufferedImage getRotatedImage(double angle) {
+    protected BufferedImage getRotatedImage() {
         // https://stackoverflow.com/questions/8639567/java-rotating-images
         double anchorX = image.getWidth() / 2.0;
         double anchorY = image.getHeight() / 2.0;
@@ -52,23 +55,31 @@ public abstract class Sprite extends Updatable {
     }
 
     public int getX() {
-        return (int)x;
+        return x;
     }
 
     public int getY() {
-        return (int)y;
+        return y;
+    }
+
+    public double getDegree() {
+        return angle * 180d / Math.PI;
+    }
+
+    public double getAngle() {
+        return angle;
     }
 
     public int getWidth() {
-        return (int)width;
+        return width;
     }
 
     public int getHeight() {
-        return (int)height;
+        return height;
     }
 
     public Point getRelativePos() {
-        return Game.camera.toRelativePos(getX(), getY());
+        return Game.camera.toRelativePos(x, y);
     }
 
     public boolean isVisible() {
