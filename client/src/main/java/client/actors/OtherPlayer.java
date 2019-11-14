@@ -1,4 +1,8 @@
-package client;
+package client.actors;
+
+import client.actors.base.Sprite;
+import client.event.Event;
+import client.management.GameController;
 
 import java.awt.image.BufferedImage;
 
@@ -7,7 +11,7 @@ public class OtherPlayer extends Sprite {
     double angle;
     boolean isActive = true;
 
-    OtherPlayer(int x, int y) {
+    public OtherPlayer(int x, int y) {
         super("craft.png", x, y);
     }
 

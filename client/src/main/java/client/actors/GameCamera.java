@@ -1,17 +1,21 @@
-package client;
+package client.actors;
 
-import java.awt.*;
+import client.actors.base.Updatable;
+import client.management.GameController;
+import client.management.GameManager;
 
-class GameCamera extends Updatable {
+import java.awt.Point;
+
+public class GameCamera extends Updatable {
     private int width = 500;
     private int height = 500;
     private Point pos = new Point(-50, -50);
 
-    int getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    int getHeight() {
+    public int getHeight() {
         return height;
     }
 

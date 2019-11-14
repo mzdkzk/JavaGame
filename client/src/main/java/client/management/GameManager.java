@@ -1,4 +1,9 @@
-package client;
+package client.management;
+
+import client.actors.base.Sprite;
+import client.actors.base.Updatable;
+import client.event.Event;
+import client.actors.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +26,7 @@ public class GameManager extends JPanel implements ActionListener {
     private Timer timer;
     private final int FPS = 30;
 
-    GameManager() {
+    public GameManager() {
         addKeyListener(controller);
         addMouseMotionListener(controller);
         setFocusable(true);

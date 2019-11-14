@@ -1,12 +1,15 @@
-package client;
+package client.actors;
+
+import client.actors.base.Sprite;
+import client.management.GameController;
 
 public class Star extends Sprite {
-    Star(int x,int y) {
+    public Star(int x, int y) {
         super("star.png", x, y);
     }
 
     @Override
-    void start() {
+    public void start() {
 
     }
 

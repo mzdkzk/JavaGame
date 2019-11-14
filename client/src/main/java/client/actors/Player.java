@@ -1,6 +1,12 @@
-package client;
+package client.actors;
 
-import java.awt.*;
+import client.actors.base.Sprite;
+import client.event.*;
+import client.MyGameClient;
+import client.event.Event;
+import client.management.*;
+
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
@@ -12,7 +18,7 @@ public class Player extends Sprite {
     private double angle;
     private double moveSpeed = 1.0;
 
-    Player(int x, int y) {
+    public Player(int x, int y) {
         super("craft.png", x, y);
     }
 

@@ -1,4 +1,7 @@
-package client;
+package client.actors;
+
+import client.actors.base.Sprite;
+import client.management.GameController;
 
 import java.awt.image.BufferedImage;
 
@@ -6,16 +9,16 @@ public class Beam extends Sprite {
     private double angle;
     private double moveSpeed = 30.0;
 
-    Beam(Player from) {
+    public Beam(Player from) {
         super("missile.png",
-                (int)(from.getX() + from.width / 2),
-                (int)(from.getY() + from.height / 2)
+                from.getX() + from.getWidth() / 2,
+                from.getY() + from.getHeight() / 2
         );
         angle = from.getAngle();
     }
 
     @Override
-    void start() {
+    public void start() {
 
     }
 

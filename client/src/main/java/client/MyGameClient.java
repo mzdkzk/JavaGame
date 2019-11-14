@@ -1,5 +1,8 @@
 package client;
 
+import client.event.Event;
+import client.management.GameManager;
+
 import java.net.*;
 import java.io.*;
 import javax.swing.*;
@@ -23,8 +26,8 @@ public class MyGameClient extends JFrame {
         return writer;
     }
 
-    static void send(Object s) {
-        MyGameClient.getWriter().println(s);
+    public static void send(Event event) {
+        MyGameClient.getWriter().println(event.toString());
     }
 
     static BufferedReader getReader() {
@@ -84,7 +87,7 @@ class LocalClientThread extends Thread {
             while (true) {
                 String inputLine = MyGameClient.readLine();
                 if (inputLine != null) {
-                    Event event = new Event(inputLine);
+                    client.event.Event event = new Event(inputLine);
                     if (MyGameClient.userId != event.getSenderId()) {
                         GameManager.addEvent(event);
                         System.out.println(event.toString());

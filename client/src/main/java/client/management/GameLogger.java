@@ -1,4 +1,4 @@
-package client;
+package client.management;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -17,10 +17,10 @@ class GameLog {
     }
 }
 
-class GameLogger {
+public class GameLogger {
     static List<GameLog> logQueue = new ArrayList<>();
 
-    static void update(String label, String message) {
+    public static void update(String label, String message) {
         for (GameLog log : logQueue) {
             if (log.label.equals(label)) {
                 log.message = message;

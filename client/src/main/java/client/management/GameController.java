@@ -1,4 +1,4 @@
-package client;
+package client.management;
 
 import java.awt.Point;
 import java.awt.event.KeyEvent;

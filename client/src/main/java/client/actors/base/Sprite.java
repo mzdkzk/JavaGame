@@ -1,13 +1,14 @@
-package client;
+package client.actors.base;
 
+import client.management.GameManager;
+
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import javax.imageio.ImageIO;
 
 public abstract class Sprite extends Updatable {
     // TODO: 可能な限りintにする

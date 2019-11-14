@@ -1,19 +1,6 @@
-package client;
+package client.event;
 
-enum EventType {
-    join,
-    move,
-    delete;
-
-    static EventType fromString(String type) {
-        for (EventType eventType : EventType.values()) {
-            if (eventType.name().equals(type)) {
-                return eventType;
-            }
-        }
-        return null;
-    }
-}
+import client.MyGameClient;
 
 public class Event {
     private EventType type;
@@ -22,7 +9,7 @@ public class Event {
     private int y;
     private double angle;
 
-    Event(EventType type, int x, int y, double angle) {
+    public Event(EventType type, int x, int y, double angle) {
         this.type = type;
         this.senderId = MyGameClient.userId;
         this.x = x;
@@ -30,7 +17,7 @@ public class Event {
         this.angle = angle;
     }
 
-    Event(String eventString) {
+    public Event(String eventString) {
         String[] args = eventString.split(" ");
         type = EventType.fromString(args[0]);
         senderId = Integer.parseInt(args[1]);
