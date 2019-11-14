@@ -23,7 +23,7 @@ public class Player extends Sprite {
     }
 
     private void fire() {
-        GameManager.addChild(new Beam(this));
+        Game.addChild(new Beam(this));
     }
 
     double getDegree() {
@@ -54,7 +54,7 @@ public class Player extends Sprite {
 
     @Override
     public void update() {
-        Controller controller = GameManager.controller;
+        Controller controller = Game.controller;
 
         if (controller.isDown(KeyEvent.VK_A)) {
             dx -= moveSpeed;
@@ -83,7 +83,7 @@ public class Player extends Sprite {
         }
 
         Point mousePoint = controller.getMousePoint();
-        Point playerPoint = GameManager.player.getRelativePos();
+        Point playerPoint = Game.player.getRelativePos();
         if (mousePoint != null) {
             angle = Math.atan2(mousePoint.y - playerPoint.y, mousePoint.x - playerPoint.x);
             GameLogger.update("player.degree", getDegree() + "℃");

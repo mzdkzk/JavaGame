@@ -1,7 +1,7 @@
 package client;
 
 import client.event.Event;
-import client.management.GameManager;
+import client.management.Game;
 
 import java.net.*;
 import java.io.*;
@@ -53,7 +53,7 @@ public class MyGameClient extends JFrame {
     private MyGameClient() {
         connectServer();
 
-        GameManager game = new GameManager();
+        Game game = new Game();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("MyGame");
@@ -89,7 +89,7 @@ class LocalClientThread extends Thread {
                 if (inputLine != null) {
                     client.event.Event event = new Event(inputLine);
                     if (MyGameClient.userId != event.getSenderId()) {
-                        GameManager.addEvent(event);
+                        Game.addEvent(event);
                         System.out.println(event.toString());
                     }
                 } else {

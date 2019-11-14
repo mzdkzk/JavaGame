@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public class GameManager extends JPanel implements ActionListener {
+public class Game extends JPanel implements ActionListener {
     private static ArrayList<Updatable> children = new ArrayList<>();
     private static ArrayList<Event> eventQueue = new ArrayList<>();
 
@@ -26,7 +26,7 @@ public class GameManager extends JPanel implements ActionListener {
     private Timer timer;
     private final int FPS = 30;
 
-    public GameManager() {
+    public Game() {
         addKeyListener(controller);
         addMouseMotionListener(controller);
         setFocusable(true);
@@ -57,7 +57,7 @@ public class GameManager extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ArrayList<Event> eventQueue = new ArrayList<>(GameManager.eventQueue);
+        ArrayList<Event> eventQueue = new ArrayList<>(Game.eventQueue);
         for (Event event : eventQueue) {
             switch (event.getType()) {
                 case join:
@@ -74,9 +74,9 @@ public class GameManager extends JPanel implements ActionListener {
                     break;
             }
         }
-        GameManager.eventQueue.clear();
+        Game.eventQueue.clear();
 
-        ArrayList<Updatable> children = new ArrayList<>(GameManager.children);
+        ArrayList<Updatable> children = new ArrayList<>(Game.children);
         for (Updatable child : children) {
             if (!child.started) {
                 child.started = true;

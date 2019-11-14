@@ -1,6 +1,6 @@
 package client.actors.base;
 
-import client.management.GameManager;
+import client.management.Game;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -68,7 +68,7 @@ public abstract class Sprite extends Updatable {
     }
 
     public Point getRelativePos() {
-        return GameManager.camera.toRelativePos(getX(), getY());
+        return Game.camera.toRelativePos(getX(), getY());
     }
 
     public boolean isVisible() {
