@@ -14,10 +14,10 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class GameManager extends JPanel implements ActionListener {
-    // TODO: staticにする
-    private GameController controller = new GameController();
     private static ArrayList<Updatable> children = new ArrayList<>();
     private static ArrayList<Event> eventQueue = new ArrayList<>();
+
+    public static Controller controller = new Controller();
     public static GameCamera camera = new GameCamera();
 
     public static Player player = new Player(10, 10);
@@ -82,7 +82,7 @@ public class GameManager extends JPanel implements ActionListener {
                 child.started = true;
                 child.start();
             }
-            child.update(controller);
+            child.update();
         }
         repaint();
     }

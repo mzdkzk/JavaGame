@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
-public class GameController implements KeyListener, MouseMotionListener {
+public class Controller implements KeyListener, MouseMotionListener {
     private Point mousePoint;
     private ArrayList<Integer> keyQueue = new ArrayList<>();
 

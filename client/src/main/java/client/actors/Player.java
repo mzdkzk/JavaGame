@@ -53,7 +53,9 @@ public class Player extends Sprite {
     }
 
     @Override
-    public void update(GameController controller) {
+    public void update() {
+        Controller controller = GameManager.controller;
+
         if (controller.isDown(KeyEvent.VK_A)) {
             dx -= moveSpeed;
         }

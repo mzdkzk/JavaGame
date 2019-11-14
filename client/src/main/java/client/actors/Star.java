@@ -1,7 +1,7 @@
 package client.actors;
 
 import client.actors.base.Sprite;
-import client.management.GameController;
+import client.management.Controller;
 
 public class Star extends Sprite {
     public Star(int x, int y) {
@@ -14,7 +14,7 @@ public class Star extends Sprite {
     }
 
     @Override
-    public void update(GameController controller) {
+    public void update() {
 
     }
 }

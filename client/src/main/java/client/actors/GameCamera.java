@@ -1,7 +1,7 @@
 package client.actors;
 
 import client.actors.base.Updatable;
-import client.management.GameController;
+import client.management.Controller;
 import client.management.GameManager;
 
 import java.awt.Point;
@@ -29,7 +29,7 @@ public class GameCamera extends Updatable {
     }
 
     @Override
-    public void update(GameController controller) {
+    public void update() {
         Player player = GameManager.player;
         int x = player.getX() - width / 2 + player.getWidth() / 2;
         int y = player.getY() - height / 2 + player.getHeight() / 2;

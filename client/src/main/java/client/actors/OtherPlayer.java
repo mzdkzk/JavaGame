@@ -2,7 +2,7 @@ package client.actors;
 
 import client.actors.base.Sprite;
 import client.event.Event;
-import client.management.GameController;
+import client.management.Controller;
 
 import java.awt.image.BufferedImage;
 
@@ -31,7 +31,6 @@ public class OtherPlayer extends Sprite {
     }
 
     @Override
-    public void update(GameController controller) {
-
+    public void update() {
     }
 }
