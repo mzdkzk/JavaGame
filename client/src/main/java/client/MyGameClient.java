@@ -84,7 +84,11 @@ class LocalClientThread extends Thread {
             while (true) {
                 String inputLine = MyGameClient.readLine();
                 if (inputLine != null) {
-                    System.out.println(inputLine);
+                    Event event = new Event(inputLine);
+                    if (MyGameClient.userId != event.getSenderId()) {
+                        GameManager.addEvent(event);
+                        System.out.println(event.toString());
+                    }
                 } else {
                     break;
                 }

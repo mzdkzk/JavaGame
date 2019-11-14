@@ -1,7 +1,7 @@
 package client;
 
 enum EventType {
-    show,
+    join,
     move,
     delete;
 
@@ -46,6 +46,10 @@ public class Event {
 
     public int getY() {
         return y;
+    }
+
+    public int getSenderId() {
+        return senderId;
     }
 
     @Override

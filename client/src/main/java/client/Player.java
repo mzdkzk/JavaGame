@@ -3,7 +3,6 @@ package client;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.PrintWriter;
 
 public class Player extends Sprite {
     private double dx;
@@ -44,7 +43,7 @@ public class Player extends Sprite {
 
     @Override
     public void start() {
-        MyGameClient.send(new Event(EventType.show, getX(), getY()));
+        MyGameClient.send(new Event(EventType.join, getX(), getY()));
     }
 
     @Override
