@@ -1,13 +1,16 @@
 package client;
 
 import client.event.Event;
-import client.management.Game;
+import client.game.Game;
 
-import java.net.*;
-import java.io.*;
 import javax.swing.*;
-import java.lang.*;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class MyGameClient extends JFrame {
     private static Socket socket;

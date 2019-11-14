@@ -1,6 +1,6 @@
 package client.actors.base;
 
-import client.management.Game;
+import client.game.Game;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

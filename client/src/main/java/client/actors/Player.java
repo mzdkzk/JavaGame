@@ -4,9 +4,9 @@ import client.MyGameClient;
 import client.actors.base.Sprite;
 import client.event.Event;
 import client.event.EventType;
-import client.logging.Logger;
-import client.management.Controller;
-import client.management.Game;
+import client.game.Controller;
+import client.game.Game;
+import client.game.logging.Logger;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

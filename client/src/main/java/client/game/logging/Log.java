@@ -1,4 +1,4 @@
-package client.logging;
+package client.game.logging;
 
 public class Log {
     String label;

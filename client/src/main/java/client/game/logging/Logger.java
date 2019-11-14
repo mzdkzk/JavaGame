@@ -1,4 +1,4 @@
-package client.logging;
+package client.game.logging;
 
 import java.util.ArrayList;
 import java.util.List;

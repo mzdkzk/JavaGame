@@ -1,4 +1,4 @@
-package client.management;
+package client.game;
 
 import client.actors.GameCamera;
 import client.actors.OtherPlayer;
@@ -7,8 +7,8 @@ import client.actors.Star;
 import client.actors.base.Sprite;
 import client.actors.base.Updatable;
 import client.event.Event;
-import client.logging.Log;
-import client.logging.Logger;
+import client.game.logging.Log;
+import client.game.logging.Logger;
 
 import javax.swing.*;
 import java.awt.*;

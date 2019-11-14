@@ -1,6 +1,6 @@
-package client.management;
+package client.game;
 
-import client.logging.Logger;
+import client.game.logging.Logger;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

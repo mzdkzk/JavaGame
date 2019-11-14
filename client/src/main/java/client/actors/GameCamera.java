@@ -1,9 +1,9 @@
 package client.actors;
 
 import client.actors.base.Updatable;
-import client.management.Game;
+import client.game.Game;
 
-import java.awt.Point;
+import java.awt.*;
 
 public class GameCamera extends Updatable {
     private int width = 500;
