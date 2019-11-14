@@ -37,13 +37,13 @@ public class Player extends Sprite {
         x += dx;
         y += dy;
         if (Math.abs(dx) > 0 || Math.abs(dy) > 0) {
-            MyGameClient.send(new Event(EventType.move, getX(), getY()));
+            MyGameClient.send(new Event(EventType.move, getX(), getY(), getAngle()));
         }
     }
 
     @Override
     public void start() {
-        MyGameClient.send(new Event(EventType.join, getX(), getY()));
+
     }
 
     @Override

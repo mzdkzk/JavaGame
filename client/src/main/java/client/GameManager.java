@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class GameManager extends JPanel implements ActionListener {
@@ -13,7 +14,9 @@ public class GameManager extends JPanel implements ActionListener {
     private static ArrayList<Updatable> children = new ArrayList<>();
     private static ArrayList<Event> eventQueue = new ArrayList<>();
     public static GameCamera camera = new GameCamera();
+
     public static Player player = new Player(10, 10);
+    public static HashMap<Integer, OtherPlayer> otherPlayers = new HashMap<>();
 
     private Timer timer;
     private final int FPS = 30;
@@ -49,15 +52,26 @@ public class GameManager extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        ArrayList<Event> eventQueue = new ArrayList<>(GameManager.eventQueue);
         for (Event event : eventQueue) {
             switch (event.getType()) {
                 case join:
-                    addChild(new OtherPlayer(event.getX(), event.getY()));
+                    break;
+                case move:
+                    if (otherPlayers.containsKey(event.getSenderId())) {
+                        OtherPlayer joinedOther = otherPlayers.get(event.getSenderId());
+                        joinedOther.move(event);
+                    } else {
+                        OtherPlayer otherPlayer = new OtherPlayer(event.getX(), event.getY());
+                        otherPlayers.put(event.getSenderId(), otherPlayer);
+                        addChild(otherPlayer);
+                    }
+                    break;
             }
         }
-        eventQueue.clear();
+        GameManager.eventQueue.clear();
 
-        ArrayList<Updatable> children = (ArrayList<Updatable>)GameManager.children.clone();
+        ArrayList<Updatable> children = new ArrayList<>(GameManager.children);
         for (Updatable child : children) {
             if (!child.started) {
                 child.started = true;
