@@ -25,6 +25,10 @@ application {
     mainClassName = 'server.MyGameServer'
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 jar {
     manifest {
         attributes 'Main-Class': 'server.MyGameServer'

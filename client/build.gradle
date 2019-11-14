@@ -25,6 +25,10 @@ application {
     mainClassName = 'client.MyClient'
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 jar {
     manifest {
         attributes 'Main-Class': 'client.MyClient'
