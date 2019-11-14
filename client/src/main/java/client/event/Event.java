@@ -1,6 +1,6 @@
 package client.event;
 
-import client.MyGameClient;
+import client.MyClient;
 
 public class Event {
     private EventType type;
@@ -11,7 +11,7 @@ public class Event {
 
     public Event(EventType type, int x, int y, double angle) {
         this.type = type;
-        this.senderId = MyGameClient.userId;
+        this.senderId = MyClient.getUserId();
         this.x = x;
         this.y = y;
         this.angle = angle;

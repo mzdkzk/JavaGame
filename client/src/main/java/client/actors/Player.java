@@ -1,6 +1,6 @@
 package client.actors;
 
-import client.MyGameClient;
+import client.MyClient;
 import client.actors.base.Sprite;
 import client.event.Event;
 import client.event.EventType;
@@ -45,7 +45,7 @@ public class Player extends Sprite {
         x += dx;
         y += dy;
         if (Math.abs(dx) > 0 || Math.abs(dy) > 0) {
-            MyGameClient.send(new Event(EventType.move, getX(), getY(), getAngle()));
+            MyClient.send(new Event(EventType.move, getX(), getY(), getAngle()));
         }
     }
 

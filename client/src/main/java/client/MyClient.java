@@ -12,11 +12,11 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class MyGameClient extends JFrame {
+public class MyClient extends JFrame {
     private static Socket socket;
     private static PrintWriter writer;
     private static BufferedReader reader;
-    public static int userId;
+    private static int userId;
 
     private static PrintWriter getWriter() {
         if (writer == null) {
@@ -30,7 +30,7 @@ public class MyGameClient extends JFrame {
     }
 
     public static void send(Event event) {
-        MyGameClient.getWriter().println(event.toString());
+        MyClient.getWriter().println(event.toString());
     }
 
     static BufferedReader getReader() {
@@ -46,21 +46,26 @@ public class MyGameClient extends JFrame {
     }
 
     static String readLine() throws IOException {
-        return MyGameClient.getReader().readLine();
+        return MyClient.getReader().readLine();
+    }
+
+
+    public static int getUserId() {
+        return userId;
     }
 
     static void closeSocket() throws IOException {
         socket.close();
     }
 
-    private MyGameClient() {
+    private MyClient() {
         connectServer();
 
         Game game = new Game();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("MyGame");
-        setSize(game.camera.getWidth(), game.camera.getHeight());
+        setSize(Game.camera.getWidth(), Game.camera.getHeight());
 
         Container container = getContentPane(); //フレームのペインを取得する
         container.add(game);
@@ -78,30 +83,30 @@ public class MyGameClient extends JFrame {
     }
 
     public static void main(String[] args) {
-        MyGameClient game = new MyGameClient();
+        MyClient game = new MyClient();
         game.setVisible(true);
     }
-}
 
-class LocalClientThread extends Thread {
-    public void run() {
-        try {
-            MyGameClient.userId = Integer.parseInt(MyGameClient.readLine());
-            while (true) {
-                String inputLine = MyGameClient.readLine();
-                if (inputLine != null) {
-                    client.event.Event event = new Event(inputLine);
-                    if (MyGameClient.userId != event.getSenderId()) {
-                        Game.addEvent(event);
-                        System.out.println(event.toString());
+    private static class LocalClientThread extends Thread {
+        public void run() {
+            try {
+                userId = Integer.parseInt(readLine());
+                while (true) {
+                    String inputLine = readLine();
+                    if (inputLine != null) {
+                        client.event.Event event = new Event(inputLine);
+                        if (userId != event.getSenderId()) {
+                            Game.addEvent(event);
+                            System.out.println(event.toString());
+                        }
+                    } else {
+                        break;
                     }
-                } else {
-                    break;
                 }
+                closeSocket();
+            } catch (IOException e) {
+                System.err.println("エラーが発生しました: " + e);
             }
-            MyGameClient.closeSocket();
-        } catch (IOException e) {
-            System.err.println("エラーが発生しました: " + e);
         }
     }
 }
