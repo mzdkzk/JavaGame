@@ -27,6 +27,6 @@ application {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'server.MyGameClient'
+        attributes 'Main-Class': 'server.MyGameServer'
     }
 }

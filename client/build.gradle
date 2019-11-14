@@ -22,11 +22,11 @@ repositories {
 
 application {
     // Define the main class for the application
-    mainClassName = 'client.MyGameClient'
+    mainClassName = 'client.MyClient'
 }
 
 jar {
     manifest {
-        attributes 'Main-Class': 'client.MyGameClient'
+        attributes 'Main-Class': 'client.MyClient'
     }
 }
