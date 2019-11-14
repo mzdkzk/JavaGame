@@ -1,9 +1,14 @@
 package client.management;
 
+import client.actors.GameCamera;
+import client.actors.OtherPlayer;
+import client.actors.Player;
+import client.actors.Star;
 import client.actors.base.Sprite;
 import client.actors.base.Updatable;
 import client.event.Event;
-import client.actors.*;
+import client.logging.Log;
+import client.logging.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -105,7 +110,7 @@ public class Game extends JPanel implements ActionListener {
 
         g.setColor(Color.WHITE);
         int logY = 0;
-        for (GameLog log : GameLogger.logQueue) {
+        for (Log log : Logger.getLogQueue()) {
             logY += 10;
             g.drawString(log.text(), 5, logY);
         }

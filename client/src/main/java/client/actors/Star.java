@@ -1,7 +1,6 @@
 package client.actors;
 
 import client.actors.base.Sprite;
-import client.management.Controller;
 
 public class Star extends Sprite {
     public Star(int x, int y) {

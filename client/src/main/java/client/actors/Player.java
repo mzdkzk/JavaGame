@@ -1,12 +1,14 @@
 package client.actors;
 
-import client.actors.base.Sprite;
-import client.event.*;
 import client.MyGameClient;
+import client.actors.base.Sprite;
 import client.event.Event;
-import client.management.*;
+import client.event.EventType;
+import client.logging.Logger;
+import client.management.Controller;
+import client.management.Game;
 
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
@@ -73,9 +75,9 @@ public class Player extends Sprite {
         dx = (Math.abs(dx) - moveSpeed / 2) * Math.signum(dx);
         dy = (Math.abs(dy) - moveSpeed / 2) * Math.signum(dy);
         move();
-        GameLogger.update("player.worldPos", "wx=" + getX() + ",wy=" + getY());
-        GameLogger.update("player.cameraPos", "cx=" + getRelativePos().x + ",cy=" + getRelativePos().y);
-        GameLogger.update("player.velocity", "dx=" + dx + ",dy=" + dy);
+        Logger.update("player.worldPos", "wx=" + getX() + ",wy=" + getY());
+        Logger.update("player.cameraPos", "cx=" + getRelativePos().x + ",cy=" + getRelativePos().y);
+        Logger.update("player.velocity", "dx=" + dx + ",dy=" + dy);
 
         // TODO: 左クリックへの置き換え
         if (controller.isDown(KeyEvent.VK_SPACE)) {
@@ -86,7 +88,7 @@ public class Player extends Sprite {
         Point playerPoint = Game.player.getRelativePos();
         if (mousePoint != null) {
             angle = Math.atan2(mousePoint.y - playerPoint.y, mousePoint.x - playerPoint.x);
-            GameLogger.update("player.degree", getDegree() + "℃");
+            Logger.update("player.degree", getDegree() + "℃");
         }
     }
 }

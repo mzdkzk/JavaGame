@@ -1,6 +1,8 @@
 package client.management;
 
-import java.awt.Point;
+import client.logging.Logger;
+
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -44,6 +46,6 @@ public class Controller implements KeyListener, MouseMotionListener {
     @Override
     public void mouseMoved(MouseEvent e) {
         mousePoint = e.getPoint();
-        GameLogger.update("mouse", "x=" + mousePoint.x + ",y=" + mousePoint.y);
+        Logger.update("mouse", "x=" + mousePoint.x + ",y=" + mousePoint.y);
     }
 }
