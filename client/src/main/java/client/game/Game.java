@@ -65,18 +65,19 @@ public class Game extends JPanel implements ActionListener {
         ArrayList<Event> eventQueue = new ArrayList<>(Game.eventQueue);
         for (Event event : eventQueue) {
             switch (event.getType()) {
-                case join:
-                    break;
-                case move:
+                case UPDATE:
                     if (otherPlayers.containsKey(event.getSenderId())) {
                         OtherPlayer joinedOther = otherPlayers.get(event.getSenderId());
-                        joinedOther.move(event);
+                        joinedOther.event = event;
                     } else {
-                        OtherPlayer otherPlayer = new OtherPlayer(event.getX(), event.getY());
+                        OtherPlayer otherPlayer = new OtherPlayer(event);
                         otherPlayers.put(event.getSenderId(), otherPlayer);
                         addChild(otherPlayer);
                     }
                     break;
+                case DISCONNECT:
+                    // TODO: DISCONNECTの送信側実装
+                    otherPlayers.remove(event.getSenderId());
             }
         }
         Game.eventQueue.clear();

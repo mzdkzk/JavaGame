@@ -30,7 +30,7 @@ public class Player extends Sprite {
         x += dx;
         y += dy;
         if (Math.abs(dx) > 0 || Math.abs(dy) > 0) {
-            MyClient.send(new Event(EventType.move, getX(), getY(), getAngle()));
+            MyClient.send(new Event(EventType.UPDATE, getX(), getY(), getAngle()));
         }
     }
 

@@ -1,9 +1,8 @@
 package client.event;
 
 public enum EventType {
-    join,
-    move,
-    delete;
+    UPDATE,
+    DISCONNECT;
 
     static EventType fromString(String type) {
         for (EventType eventType : EventType.values()) {
