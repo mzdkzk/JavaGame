@@ -8,11 +8,6 @@ public class Star extends Sprite {
     }
 
     @Override
-    public void start() {
-
-    }
-
-    @Override
     public void update() {
 
     }

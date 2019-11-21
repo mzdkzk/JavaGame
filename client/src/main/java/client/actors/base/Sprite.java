@@ -10,24 +10,26 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
-public abstract class Sprite extends Updatable {
+public abstract class Sprite {
     protected int x;
     protected int y;
     protected double angle;
     private int width;
     private int height;
-    private boolean visible;
     private BufferedImage image;
 
-    public Sprite(String imagePath, int x, int y) {
+    public Sprite(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Sprite(String imagePath, int x, int y) {
+        this(x, y);
         try {
             loadImage(imagePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        visible = true;
     }
 
     private void loadImage(String path) throws IOException {
@@ -82,11 +84,5 @@ public abstract class Sprite extends Updatable {
         return Game.camera.toRelativePos(x, y);
     }
 
-    public boolean isVisible() {
-        return visible;
-    }
-
-    public void setVisible(Boolean visible) {
-        this.visible = visible;
-    }
+    abstract public void update();
 }

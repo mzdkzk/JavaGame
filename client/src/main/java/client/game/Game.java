@@ -3,7 +3,6 @@ package client.game;
 import client.MyClient;
 import client.actors.*;
 import client.actors.base.Sprite;
-import client.actors.base.Updatable;
 import client.event.Event;
 import client.event.EventType;
 import client.game.logging.Log;
@@ -18,7 +17,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Game extends JPanel implements ActionListener {
-    private static ArrayList<Updatable> children = new ArrayList<>();
+    private static ArrayList<Sprite> children = new ArrayList<>();
     private static ArrayList<Event> eventQueue = new ArrayList<>();
 
     public static Controller controller = new Controller();
@@ -56,11 +55,11 @@ public class Game extends JPanel implements ActionListener {
         return joinedPlayers.get(MyClient.getUserId());
     }
 
-    public static void addChild(Updatable child) {
+    public static void addChild(Sprite child) {
         children.add(child);
     }
 
-    public static void removeChild(Updatable child) {
+    public static void removeChild(Sprite child) {
         children.remove(child);
     }
 
@@ -105,12 +104,8 @@ public class Game extends JPanel implements ActionListener {
         Game.eventQueue.clear();
 
         // コントローラーの入力などをもとに次フレームで適用されるイベントを作成し送信する
-        ArrayList<Updatable> children = new ArrayList<>(Game.children);
-        for (Updatable child : children) {
-            if (!child.started) {
-                child.started = true;
-                child.start();
-            }
+        ArrayList<Sprite> children = new ArrayList<>(Game.children);
+        for (Sprite child : children) {
             child.update();
         }
     }
@@ -123,12 +118,9 @@ public class Game extends JPanel implements ActionListener {
     }
 
     private void drawObjects(Graphics g) {
-        for (Updatable child : children) {
-            if (child instanceof Sprite) {
-                Sprite sprite = (Sprite)child;
-                Point relativePos = camera.toRelativePos(sprite.getX(), sprite.getY());
-                g.drawImage(sprite.getImage(), relativePos.x, relativePos.y, this);
-            }
+        for (Sprite sprite : children) {
+            Point relativePos = camera.toRelativePos(sprite.getX(), sprite.getY());
+            g.drawImage(sprite.getImage(), relativePos.x, relativePos.y, this);
         }
 
         g.setColor(Color.WHITE);

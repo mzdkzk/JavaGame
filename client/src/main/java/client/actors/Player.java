@@ -33,11 +33,6 @@ public class Player extends Sprite {
     }
 
     @Override
-    public void start() {
-
-    }
-
-    @Override
     public void update() {
         // 最新イベントの適用
         x = event.getX();

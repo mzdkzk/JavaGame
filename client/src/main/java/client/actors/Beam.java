@@ -14,11 +14,6 @@ public class Beam extends Sprite {
     }
 
     @Override
-    public void start() {
-
-    }
-
-    @Override
     public void update() {
         this.x += Math.cos(angle) * moveSpeed;
         this.y += Math.sin(angle) * moveSpeed;

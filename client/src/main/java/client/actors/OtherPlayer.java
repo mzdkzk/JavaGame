@@ -8,10 +8,6 @@ public class OtherPlayer extends Player {
     }
 
     @Override
-    public void start() {
-    }
-
-    @Override
     public void update() {
         x = event.getX();
         y = event.getY();
