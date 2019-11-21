@@ -33,4 +33,9 @@ public class GameCamera extends Sprite {
         int y = player.getY() - height / 2 + player.getHeight() / 2;
         pos.move(x, y);
     }
+
+    @Override
+    public void onCollisionEnter(Sprite other) {
+
+    }
 }

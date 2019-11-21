@@ -86,4 +86,9 @@ public class Player extends Sprite {
         Logger.update("player.velocity", "dx=" + dx + ",dy=" + dy);
         Logger.update("player.degree", getDegree() + "℃");
     }
+
+    @Override
+    public void onCollisionEnter(Sprite other) {
+
+    }
 }

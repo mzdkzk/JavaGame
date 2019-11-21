@@ -108,6 +108,23 @@ public class Game extends JPanel implements ActionListener {
         for (Sprite child : children) {
             child.update();
         }
+
+        // 更新後の位置で衝突判定
+        for (Sprite child : children) {
+            for (Sprite other : children) {
+                if (child == other) continue;
+
+                boolean isOtherInCollision = child.spritesInCollision.contains(other);
+                if (child.isInCollision(other)) {
+                    if (!isOtherInCollision) {
+                        child.spritesInCollision.add(other);
+                        child.onCollisionEnter(other);
+                    }
+                } else if (isOtherInCollision) {
+                    child.spritesInCollision.remove(other);
+                }
+            }
+        }
     }
 
     @Override

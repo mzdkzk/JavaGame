@@ -9,6 +9,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public abstract class Sprite {
     protected int x;
@@ -17,6 +18,9 @@ public abstract class Sprite {
     private int width;
     private int height;
     private BufferedImage image;
+
+    public ArrayList<Sprite> spritesInCollision = new ArrayList<>();
+    private final int COLLISION_CIRCLE_DIAMETER = 10;
 
     public Sprite(int x, int y) {
         this.x = x;
@@ -46,7 +50,7 @@ public abstract class Sprite {
         return getRotatedImage();
     }
 
-    protected BufferedImage getRotatedImage() {
+    private BufferedImage getRotatedImage() {
         // https://stackoverflow.com/questions/8639567/java-rotating-images
         double anchorX = image.getWidth() / 2.0;
         double anchorY = image.getHeight() / 2.0;
@@ -54,6 +58,14 @@ public abstract class Sprite {
         af.rotate(angle, anchorX, anchorY);
         AffineTransformOp op = new AffineTransformOp(af, AffineTransformOp.TYPE_BILINEAR);
         return op.filter(image, null);
+    }
+
+    public boolean isInCollision(Sprite other) {
+        int centerX = x + width / 2;
+        int centerY = y + height / 2;
+        int otherCenterX = other.x + other.width / 2;
+        int otherCenterY = other.y + other.height / 2;
+        return Math.pow(centerX - otherCenterX, 2) + Math.pow(centerY - otherCenterY, 2) < Math.pow(COLLISION_CIRCLE_DIAMETER, 2);
     }
 
     public int getX() {
@@ -85,4 +97,6 @@ public abstract class Sprite {
     }
 
     abstract public void update();
+
+    abstract public void onCollisionEnter(Sprite other);
 }
