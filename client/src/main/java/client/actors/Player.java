@@ -80,7 +80,10 @@ public class Player extends Sprite {
         int nextY = (int)(y + dy);
 
         // 次フレームの移動を送信
-        MyClient.send(new Event(EventType.UPDATE, nextX, nextY, nextAngle));
+        double da = event.getAngle() - nextAngle;
+        if (Math.abs(dx) > 0 || Math.abs(dy) > 0 || Math.abs(da) > 0.01) {
+            MyClient.send(new Event(EventType.UPDATE, nextX, nextY, nextAngle));
+        }
 
         // デバッグログ
         Logger.update("player.worldPos", "wx=" + x + ",wy=" + y);

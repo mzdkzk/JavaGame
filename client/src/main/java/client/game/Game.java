@@ -43,7 +43,7 @@ public class Game extends JPanel implements ActionListener {
             addChild(new Star(x, y));
         }
 
-        Event playerJoinEvent = new Event(EventType.UPDATE, 10, 10, 0);
+        Event playerJoinEvent = new Event(EventType.UPDATE, 10, 10);
         joinPlayer(playerJoinEvent);
 
         addChild(camera);
@@ -58,6 +58,10 @@ public class Game extends JPanel implements ActionListener {
 
     public static void addChild(Updatable child) {
         children.add(child);
+    }
+
+    public static void removeChild(Updatable child) {
+        children.remove(child);
     }
 
     public static void addEvent(Event event) {
@@ -90,8 +94,8 @@ public class Game extends JPanel implements ActionListener {
                     addChild(new Beam(sender));
                     break;
                 case DISCONNECT:
-                    // TODO: DISCONNECTの送信側実装
                     joinedPlayers.remove(event.getSenderId());
+                    removeChild(sender);
                     break;
             }
         }

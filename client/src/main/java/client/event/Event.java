@@ -11,11 +11,19 @@ public class Event {
     private int y;
     private double angle;
 
-    public Event(EventType type, int x, int y, double angle) {
+    public Event(EventType type) {
         this.type = type;
         this.senderId = MyClient.getUserId();
+    }
+
+    public Event(EventType type, int x, int y) {
+        this(type);
         this.x = x;
         this.y = y;
+    }
+
+    public Event(EventType type, int x, int y, double angle) {
+        this(type, x, y);
         this.angle = angle;
     }
 

@@ -1,10 +1,13 @@
 package client;
 
 import client.event.Event;
+import client.event.EventType;
 import client.game.Game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -61,6 +64,12 @@ public class MyClient extends JFrame {
     private MyClient() {
         connectServer();
 
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                MyClient.send(new Event(EventType.DISCONNECT));
+            }
+        });
+
         Game game = new Game();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -94,7 +103,7 @@ public class MyClient extends JFrame {
                 while (true) {
                     String inputLine = readLine();
                     if (inputLine != null) {
-                        client.event.Event event = new Event(inputLine);
+                        Event event = new Event(inputLine);
                         // 自身が送信したイベントも受け取る
                         Game.addEvent(event);
                         System.out.println(event.toString());
