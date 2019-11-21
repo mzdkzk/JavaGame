@@ -29,7 +29,7 @@ public class GameCamera extends Updatable {
 
     @Override
     public void update() {
-        Player player = Game.player;
+        Player player = Game.getPlayer();
         int x = player.getX() - width / 2 + player.getWidth() / 2;
         int y = player.getY() - height / 2 + player.getHeight() / 2;
         pos.move(x, y);

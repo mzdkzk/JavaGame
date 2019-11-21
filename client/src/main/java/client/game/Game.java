@@ -5,6 +5,7 @@ import client.actors.*;
 import client.actors.base.Sprite;
 import client.actors.base.Updatable;
 import client.event.Event;
+import client.event.EventType;
 import client.game.logging.Log;
 import client.game.logging.Logger;
 
@@ -23,7 +24,6 @@ public class Game extends JPanel implements ActionListener {
     public static Controller controller = new Controller();
     public static GameCamera camera = new GameCamera();
 
-    public static Player player = new Player(10, 10);
     public static HashMap<Integer, Player> joinedPlayers = new HashMap<>();
 
     private Timer timer;
@@ -43,13 +43,17 @@ public class Game extends JPanel implements ActionListener {
             addChild(new Star(x, y));
         }
 
-        addChild(player);
-        joinedPlayers.put(MyClient.getUserId(), player);
+        Event playerJoinEvent = new Event(EventType.UPDATE, 10, 10, 0);
+        joinPlayer(playerJoinEvent);
 
         addChild(camera);
 
         timer = new Timer(1000 / FPS, this);
         timer.start();
+    }
+
+    public static Player getPlayer() {
+        return joinedPlayers.get(MyClient.getUserId());
     }
 
     public static void addChild(Updatable child) {
@@ -60,23 +64,27 @@ public class Game extends JPanel implements ActionListener {
         eventQueue.add(event);
     }
 
+    private static void joinPlayer(Event event) {
+        Player player = new Player(event);
+        if (event.isOther()) {
+            player = new OtherPlayer(event);
+        }
+        joinedPlayers.put(event.getSenderId(), player);
+        addChild(player);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
+        // 前フレームで作成したイベントを受け取り、全て適用する
         ArrayList<Event> eventQueue = new ArrayList<>(Game.eventQueue);
         for (Event event : eventQueue) {
-            if (event.isOther() && !joinedPlayers.containsKey(event.getSenderId())) {
-                OtherPlayer otherPlayer = new OtherPlayer(event);
-                joinedPlayers.put(event.getSenderId(), otherPlayer);
-                addChild(otherPlayer);
+            if (!joinedPlayers.containsKey(event.getSenderId())) {
+                joinPlayer(event);
             }
-
             Player sender = event.getSender();
             switch (event.getType()) {
                 case UPDATE:
-                    if (event.isOther()) {
-                        OtherPlayer otherPlayer = (OtherPlayer)event.getSender();
-                        otherPlayer.setEvent(event);
-                    }
+                    sender.setEvent(event);
                     break;
                 case FIRE:
                     addChild(new Beam(sender));
@@ -87,8 +95,12 @@ public class Game extends JPanel implements ActionListener {
                     break;
             }
         }
+
+        // 適用したイベントを元に全要素を再描画
+        repaint();
         Game.eventQueue.clear();
 
+        // コントローラーの入力などをもとに次フレームで適用されるイベントを作成し送信する
         ArrayList<Updatable> children = new ArrayList<>(Game.children);
         for (Updatable child : children) {
             if (!child.started) {
@@ -97,7 +109,6 @@ public class Game extends JPanel implements ActionListener {
             }
             child.update();
         }
-        repaint();
     }
 
     @Override
