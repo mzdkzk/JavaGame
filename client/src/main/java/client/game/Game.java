@@ -1,9 +1,7 @@
 package client.game;
 
-import client.actors.GameCamera;
-import client.actors.OtherPlayer;
-import client.actors.Player;
-import client.actors.Star;
+import client.MyClient;
+import client.actors.*;
 import client.actors.base.Sprite;
 import client.actors.base.Updatable;
 import client.event.Event;
@@ -26,7 +24,7 @@ public class Game extends JPanel implements ActionListener {
     public static GameCamera camera = new GameCamera();
 
     public static Player player = new Player(10, 10);
-    public static HashMap<Integer, OtherPlayer> otherPlayers = new HashMap<>();
+    public static HashMap<Integer, Player> joinedPlayers = new HashMap<>();
 
     private Timer timer;
     private final int FPS = 30;
@@ -46,6 +44,8 @@ public class Game extends JPanel implements ActionListener {
         }
 
         addChild(player);
+        joinedPlayers.put(MyClient.getUserId(), player);
+
         addChild(camera);
 
         timer = new Timer(1000 / FPS, this);
@@ -64,20 +64,27 @@ public class Game extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         ArrayList<Event> eventQueue = new ArrayList<>(Game.eventQueue);
         for (Event event : eventQueue) {
+            if (event.isOther() && !joinedPlayers.containsKey(event.getSenderId())) {
+                OtherPlayer otherPlayer = new OtherPlayer(event);
+                joinedPlayers.put(event.getSenderId(), otherPlayer);
+                addChild(otherPlayer);
+            }
+
+            Player sender = event.getSender();
             switch (event.getType()) {
                 case UPDATE:
-                    if (otherPlayers.containsKey(event.getSenderId())) {
-                        OtherPlayer joinedOther = otherPlayers.get(event.getSenderId());
-                        joinedOther.event = event;
-                    } else {
-                        OtherPlayer otherPlayer = new OtherPlayer(event);
-                        otherPlayers.put(event.getSenderId(), otherPlayer);
-                        addChild(otherPlayer);
+                    if (event.isOther()) {
+                        OtherPlayer otherPlayer = (OtherPlayer)event.getSender();
+                        otherPlayer.setEvent(event);
                     }
+                    break;
+                case FIRE:
+                    addChild(new Beam(sender));
                     break;
                 case DISCONNECT:
                     // TODO: DISCONNECTの送信側実装
-                    otherPlayers.remove(event.getSenderId());
+                    joinedPlayers.remove(event.getSenderId());
+                    break;
             }
         }
         Game.eventQueue.clear();

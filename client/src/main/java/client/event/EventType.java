@@ -2,6 +2,7 @@ package client.event;
 
 public enum EventType {
     UPDATE,
+    FIRE,
     DISCONNECT;
 
     static EventType fromString(String type) {

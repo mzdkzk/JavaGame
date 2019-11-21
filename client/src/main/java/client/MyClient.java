@@ -95,10 +95,9 @@ public class MyClient extends JFrame {
                     String inputLine = readLine();
                     if (inputLine != null) {
                         client.event.Event event = new Event(inputLine);
-                        if (userId != event.getSenderId()) {
-                            Game.addEvent(event);
-                            System.out.println(event.toString());
-                        }
+                        // 自身が送信したイベントも受け取る
+                        Game.addEvent(event);
+                        System.out.println(event.toString());
                     } else {
                         break;
                     }

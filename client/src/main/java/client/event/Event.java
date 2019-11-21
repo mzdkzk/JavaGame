@@ -1,6 +1,8 @@
 package client.event;
 
 import client.MyClient;
+import client.actors.Player;
+import client.game.Game;
 
 public class Event {
     private EventType type;
@@ -44,6 +46,14 @@ public class Event {
 
     public double getAngle() {
         return angle;
+    }
+
+    public Player getSender() {
+        return Game.joinedPlayers.get(senderId);
+    }
+
+    public boolean isOther() {
+        return MyClient.getUserId() != senderId;
     }
 
     @Override

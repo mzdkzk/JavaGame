@@ -23,7 +23,7 @@ public class Player extends Sprite {
     }
 
     private void fire() {
-        Game.addChild(new Beam(this));
+        MyClient.send(new Event(EventType.FIRE, getX(), getY(), getAngle()));
     }
 
     private void move() {
