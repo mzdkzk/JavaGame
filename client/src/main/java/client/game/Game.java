@@ -31,6 +31,7 @@ public class Game extends JPanel implements ActionListener {
 
     public Game() {
         addKeyListener(controller);
+        addMouseListener(controller);
         addMouseMotionListener(controller);
         setFocusable(true);
 

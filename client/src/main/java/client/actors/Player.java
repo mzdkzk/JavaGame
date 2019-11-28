@@ -54,8 +54,7 @@ public class Player extends CollidableSprite {
         if (controller.isDown(KeyEvent.VK_S)) {
             dy += moveSpeed;
         }
-        // TODO: 左クリックへの置き換え
-        if (controller.isDown(KeyEvent.VK_SPACE)) {
+        if (controller.isPointerDown()) {
             fire();
         }
         Point mousePoint = controller.getMousePoint();
