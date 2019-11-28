@@ -5,6 +5,7 @@ import client.actors.base.Sprite;
 import client.game.Game;
 
 public class Beam extends CollidableSprite {
+    private Player fromPlayer;
 
     public Beam(Player from) {
         super("beam.png");
@@ -12,6 +13,7 @@ public class Beam extends CollidableSprite {
         x = from.getX() + from.getWidth() / 2 + (int)(Math.cos(from.getAngle()) * fireOffset) - getWidth() / 2;
         y = from.getY() + from.getHeight() / 2 + (int)(Math.sin(from.getAngle()) * fireOffset) - getHeight() / 2;
         angle = from.getAngle();
+        fromPlayer = from;
     }
 
     @Override
@@ -27,7 +29,7 @@ public class Beam extends CollidableSprite {
 
     @Override
     public void onCollisionEnter(Sprite other) {
-        if (other instanceof Player) {
+        if (other != fromPlayer && other instanceof Player) {
             Game.removeChild(this);
         }
     }

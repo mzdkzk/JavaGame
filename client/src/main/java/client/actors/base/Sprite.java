@@ -68,6 +68,14 @@ public abstract class Sprite {
         return y;
     }
 
+    public int getCenterX() {
+        return x + width / 2;
+    }
+
+    public int getCenterY() {
+        return y + height / 2;
+    }
+
     public double getDegree() {
         return angle * 180d / Math.PI;
     }
