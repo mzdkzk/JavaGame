@@ -1,6 +1,7 @@
 package client.actors;
 
 import client.MyClient;
+import client.actors.base.CollidableSprite;
 import client.actors.base.Sprite;
 import client.event.Event;
 import client.event.EventType;
@@ -11,7 +12,7 @@ import client.game.logging.Logger;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class Player extends Sprite {
+public class Player extends CollidableSprite {
     Event event;
     private double dx;
     private final double MAX_DX = 15;

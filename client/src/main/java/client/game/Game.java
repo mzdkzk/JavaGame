@@ -2,6 +2,7 @@ package client.game;
 
 import client.MyClient;
 import client.actors.*;
+import client.actors.base.CollidableSprite;
 import client.actors.base.Sprite;
 import client.event.Event;
 import client.event.EventType;
@@ -103,19 +104,28 @@ public class Game extends JPanel implements ActionListener {
             child.update();
         }
 
-        // 更新後の位置で衝突判定
+        // 衝突判定のためCollidableSpriteだけのリストを作る
+        ArrayList<CollidableSprite> colChildren = new ArrayList<>();
         for (Sprite child : children) {
-            for (Sprite other : children) {
+            if (child instanceof CollidableSprite) {
+                CollidableSprite colChild = (CollidableSprite)child;
+                colChildren.add(colChild);
+            }
+        }
+
+        // 更新後の位置で衝突判定を行う
+        for (CollidableSprite child : colChildren) {
+            for (CollidableSprite other : colChildren) {
                 if (child == other) continue;
 
-                boolean isOtherInCollision = child.spritesInCollision.contains(other);
+                boolean isOtherInCollision = child.collisions.contains(other);
                 if (child.isInCollision(other)) {
                     if (!isOtherInCollision) {
-                        child.spritesInCollision.add(other);
+                        child.collisions.add(other);
                         child.onCollisionEnter(other);
                     }
                 } else if (isOtherInCollision) {
-                    child.spritesInCollision.remove(other);
+                    child.collisions.remove(other);
                 }
             }
         }

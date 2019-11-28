@@ -1,13 +1,14 @@
 package client.actors;
 
+import client.actors.base.CollidableSprite;
 import client.actors.base.Sprite;
 import client.game.Game;
 
-public class Beam extends Sprite {
+public class Beam extends CollidableSprite {
 
     public Beam(Player from) {
         super("beam.png");
-        int fireOffset = 15;
+        int fireOffset = 30;
         x = from.getX() + from.getWidth() / 2 + (int)(Math.cos(from.getAngle()) * fireOffset) - getWidth() / 2;
         y = from.getY() + from.getHeight() / 2 + (int)(Math.sin(from.getAngle()) * fireOffset) - getHeight() / 2;
         angle = from.getAngle();
@@ -26,8 +27,8 @@ public class Beam extends Sprite {
 
     @Override
     public void onCollisionEnter(Sprite other) {
-        if (other instanceof OtherPlayer) {
-            System.out.println("あたった");
+        if (other instanceof Player) {
+            Game.removeChild(this);
         }
     }
 }

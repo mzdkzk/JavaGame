@@ -13,9 +13,4 @@ public class Stage extends Sprite {
     public void update() {
 
     }
-
-    @Override
-    public void onCollisionEnter(Sprite other) {
-
-    }
 }
