@@ -2,9 +2,12 @@ package client.actors;
 
 import client.actors.base.Sprite;
 
-public class Star extends Sprite {
-    public Star(int x, int y) {
-        super("star.png", x, y);
+public class Background extends Sprite {
+
+    public Background() {
+        super("grid.png");
+        x -= getWidth() / 2;
+        y -= getHeight() / 2;
     }
 
     @Override

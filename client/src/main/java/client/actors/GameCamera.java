@@ -6,8 +6,8 @@ import client.game.Game;
 import java.awt.*;
 
 public class GameCamera extends Sprite {
-    private int width = 500;
-    private int height = 500;
+    private int width = 800;
+    private int height = 800;
     private Point pos = new Point(-50, -50);
 
     public GameCamera() {

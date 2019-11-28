@@ -14,13 +14,13 @@ import java.awt.event.KeyEvent;
 public class Player extends Sprite {
     Event event;
     private double dx;
-    private final double MAX_DX = 10;
+    private final double MAX_DX = 15;
     private double dy;
-    private final double MAX_DY = 10;
-    private double moveSpeed = 1.0;
+    private final double MAX_DY = 15;
+    private double moveSpeed = 3.5;
 
     public Player(Event event) {
-        super("craft.png", event.getX(), event.getY());
+        super("player.png", event.getX(), event.getY());
         this.event = event;
     }
 
@@ -65,12 +65,12 @@ public class Player extends Sprite {
         }
 
         // 減速処理
-        if (Math.abs(dx) >= MAX_DX) dx = MAX_DX * Math.signum(dx);
-        if (Math.abs(dy) >= MAX_DY) dy = MAX_DY * Math.signum(dy);
         dx = (Math.abs(dx) - moveSpeed / 2) * Math.signum(dx);
         dy = (Math.abs(dy) - moveSpeed / 2) * Math.signum(dy);
-        if (dx * dx == 0.0) dx = 0.0;
-        if (dy * dy == 0.0) dy = 0.0;
+        if (Math.abs(dx) >= MAX_DX) dx = MAX_DX * Math.signum(dx);
+        if (Math.abs(dy) >= MAX_DY) dy = MAX_DY * Math.signum(dy);
+        if (Math.abs(dx) <= 1) dx = 0.0;
+        if (Math.abs(dy) <= 1) dy = 0.0;
         int nextX = (int)(x + dx);
         int nextY = (int)(y + dy);
 

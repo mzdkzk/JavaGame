@@ -14,7 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 public class Game extends JPanel implements ActionListener {
     private static ArrayList<Sprite> children = new ArrayList<>();
@@ -33,14 +32,7 @@ public class Game extends JPanel implements ActionListener {
         addMouseMotionListener(controller);
         setFocusable(true);
 
-        setBackground(Color.BLACK);
-
-        Random r = new Random();
-        for (int i = 0; i < 100; i++) {
-            int x = r.nextInt(1000) - 500;
-            int y = r.nextInt(1000) - 500;
-            addChild(new Star(x, y));
-        }
+        addChild(new Background());
 
         Event playerJoinEvent = new Event(EventType.UPDATE, 10, 10);
         joinPlayer(playerJoinEvent);
@@ -140,7 +132,7 @@ public class Game extends JPanel implements ActionListener {
             g.drawImage(sprite.getImage(), relativePos.x, relativePos.y, this);
         }
 
-        g.setColor(Color.WHITE);
+        g.setColor(Color.BLACK);
         int logY = 0;
         for (Log log : Logger.getLogQueue()) {
             logY += 10;

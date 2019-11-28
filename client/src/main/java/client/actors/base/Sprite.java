@@ -27,6 +27,10 @@ public abstract class Sprite {
         this.y = y;
     }
 
+    public Sprite(String imagePath) {
+        this(imagePath, 0, 0);
+    }
+
     public Sprite(String imagePath, int x, int y) {
         this(x, y);
         try {
