@@ -21,6 +21,7 @@ public class Game extends JPanel implements ActionListener {
 
     public static Controller controller = new Controller();
     public static GameCamera camera = new GameCamera();
+    public static Stage stage = new Stage();
 
     public static HashMap<Integer, Player> joinedPlayers = new HashMap<>();
 
@@ -32,7 +33,7 @@ public class Game extends JPanel implements ActionListener {
         addMouseMotionListener(controller);
         setFocusable(true);
 
-        addChild(new Background());
+        addChild(stage);
 
         Event playerJoinEvent = new Event(EventType.UPDATE, 10, 10);
         joinPlayer(playerJoinEvent);

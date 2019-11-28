@@ -1,6 +1,7 @@
 package client.actors;
 
 import client.actors.base.Sprite;
+import client.game.Game;
 
 public class Beam extends Sprite {
 
@@ -15,8 +16,12 @@ public class Beam extends Sprite {
     @Override
     public void update() {
         double moveSpeed = 20.0;
-        this.x += Math.cos(angle) * moveSpeed;
-        this.y += Math.sin(angle) * moveSpeed;
+        x += Math.cos(angle) * moveSpeed;
+        y += Math.sin(angle) * moveSpeed;
+
+        if (Game.stage.getWidth() / 2 <= Math.abs(x) || Game.stage.getHeight() / 2 <= Math.abs(y)) {
+            Game.removeChild(this);
+        }
     }
 
     @Override
