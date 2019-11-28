@@ -10,6 +10,7 @@ public class Event {
     private int x;
     private int y;
     private double angle;
+    public boolean isDone;
 
     public Event(EventType type) {
         this.type = type;
