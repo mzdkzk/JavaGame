@@ -8,15 +8,15 @@ import java.util.ArrayList;
 
 public class Controller implements KeyListener, MouseMotionListener, MouseListener {
     private Point mousePoint;
-    private boolean pointerDown;
+    private int pointerDown;
     private ArrayList<Integer> keyQueue = new ArrayList<>();
 
-    public boolean isDown(Integer keyCode) {
+    public boolean isKeyDown(Integer keyCode) {
         return keyQueue.contains(keyCode);
     }
 
-    public boolean isPointerDown() {
-        return pointerDown;
+    public boolean isPointerDown(int pointerType) {
+        return pointerDown == pointerType;
     }
 
     public Point getMousePoint() {
@@ -42,7 +42,8 @@ public class Controller implements KeyListener, MouseMotionListener, MouseListen
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
+        mousePoint = e.getPoint();
+        Logger.update("mouse.move", "x=" + mousePoint.x + ",y=" + mousePoint.y);
     }
 
     @Override
@@ -58,13 +59,13 @@ public class Controller implements KeyListener, MouseMotionListener, MouseListen
 
     @Override
     public void mousePressed(MouseEvent e) {
+        pointerDown = e.getButton();
         Logger.update("mouse.click", "no." + e.getButton());
-        pointerDown = true;
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        pointerDown = false;
+        pointerDown = 0;
     }
 
     @Override
@@ -74,6 +75,6 @@ public class Controller implements KeyListener, MouseMotionListener, MouseListen
 
     @Override
     public void mouseExited(MouseEvent e) {
-        pointerDown = false;
+        pointerDown = 0;
     }
 }

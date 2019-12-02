@@ -7,6 +7,7 @@ import client.event.Event;
 import client.event.EventType;
 import client.game.Controller;
 import client.game.Game;
+import client.game.PointerType;
 import client.game.logging.Logger;
 
 import java.awt.*;
@@ -42,19 +43,19 @@ public class Player extends CollidableSprite {
 
         // コントローラー入力受け取り
         Controller controller = Game.controller;
-        if (controller.isDown(KeyEvent.VK_A)) {
+        if (controller.isKeyDown(KeyEvent.VK_A)) {
             dx -= moveSpeed;
         }
-        if (controller.isDown(KeyEvent.VK_D)) {
+        if (controller.isKeyDown(KeyEvent.VK_D)) {
             dx += moveSpeed;
         }
-        if (controller.isDown(KeyEvent.VK_W)) {
+        if (controller.isKeyDown(KeyEvent.VK_W)) {
             dy -= moveSpeed;
         }
-        if (controller.isDown(KeyEvent.VK_S)) {
+        if (controller.isKeyDown(KeyEvent.VK_S)) {
             dy += moveSpeed;
         }
-        if (controller.isPointerDown()) {
+        if (controller.isPointerDown(PointerType.LEFT)) {
             fire();
         }
         Point mousePoint = controller.getMousePoint();
