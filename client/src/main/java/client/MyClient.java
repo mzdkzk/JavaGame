@@ -84,9 +84,9 @@ public class MyClient extends JFrame {
         try {
             socket = new Socket("localhost", 10000);
         } catch (UnknownHostException e) {
-            System.err.println("ホストの IP アドレスが判定できません: " + e);
+            showError("ホストのIPアドレスが判定できません", e.getMessage());
         } catch (IOException e) {
-            System.err.println("エラーが発生しました: " + e);
+            showError("サーバーに接続できませんでした", e.getMessage());
         }
         new LocalClientThread().start();
     }
@@ -116,5 +116,10 @@ public class MyClient extends JFrame {
                 System.err.println("エラーが発生しました: " + e);
             }
         }
+    }
+
+    public static void showError(String title, String message) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
+        System.exit(1);
     }
 }
