@@ -30,7 +30,8 @@ public class Beam extends CollidableSprite {
     @Override
     public void onCollisionEnter(Sprite other) {
         if (other != fromPlayer && other instanceof Player) {
-            Game.removeChild(this);
+            ((Player)other).hit(1);
+            destroy();
         }
     }
 }

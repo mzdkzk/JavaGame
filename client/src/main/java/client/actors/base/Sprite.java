@@ -96,5 +96,9 @@ public abstract class Sprite {
         return Game.camera.toRelativePos(x, y);
     }
 
+    public void destroy() {
+        Game.removeChild(this);
+    }
+
     abstract public void update();
 }

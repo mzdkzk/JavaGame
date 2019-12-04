@@ -15,6 +15,8 @@ import java.awt.event.KeyEvent;
 
 public class Player extends CollidableSprite {
     Event event;
+    private final int MAX_HP = 10;
+    private int hp = MAX_HP;
     private double dx;
     private final double MAX_DX = 15;
     private double dy;
@@ -34,8 +36,20 @@ public class Player extends CollidableSprite {
         MyClient.send(new Event(EventType.FIRE, x, y, angle));
     }
 
+    public void hit(int damage) {
+        hp -= damage;
+        Logger.update("player" + event.getSenderId() + ".hp", hp + "/" + MAX_HP);
+    }
+
     @Override
     public void update() {
+        // ゲームオーバー判定
+        if (hp <= 0) {
+            MyClient.send(new Event(EventType.DISCONNECT));
+            MyClient.showInfo("ゲームオーバー！", "HPが0になりました");
+            System.exit(0);
+        }
+
         // 最新イベントの適用
         x = event.getX();
         y = event.getY();
