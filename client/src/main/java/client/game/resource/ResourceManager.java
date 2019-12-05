@@ -12,12 +12,7 @@ public class ResourceManager {
     private HashMap<String, BufferedImage> data = new HashMap<>();
 
     public ResourceManager() {
-        String[] paths = {
-                "beam.png",
-                "grid.png",
-                "player.png"
-        };
-        for (String path : paths) {
+        for (String path : Resources.ALL) {
             URL url = getClass().getClassLoader().getResource(path);
             try {
                 BufferedImage image = ImageIO.read(url);

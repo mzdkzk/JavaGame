@@ -9,6 +9,7 @@ import client.game.Controller;
 import client.game.Game;
 import client.game.PointerType;
 import client.game.logging.Logger;
+import client.game.resource.Resources;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -29,7 +30,7 @@ public class Player extends CollidableSprite {
     private double moveSpeed = 3.5;
 
     public Player(Event event) {
-        super("player.png", event.getX(), event.getY());
+        super(Resources.PLAYER, event.getX(), event.getY());
         this.event = event;
     }
 

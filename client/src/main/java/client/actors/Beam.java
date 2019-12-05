@@ -2,13 +2,14 @@ package client.actors;
 
 import client.actors.base.CollidableSprite;
 import client.actors.base.Sprite;
+import client.game.resource.Resources;
 
 public class Beam extends CollidableSprite {
     private Player fromPlayer;
     private int lifespan = 4;
 
     public Beam(Player from) {
-        super("beam.png");
+        super(Resources.BEAM);
         int fireOffset = 30;
         x = from.getX() + from.getWidth() / 2 + (int)(Math.cos(from.getAngle()) * fireOffset) - getWidth() / 2;
         y = from.getY() + from.getHeight() / 2 + (int)(Math.sin(from.getAngle()) * fireOffset) - getHeight() / 2;

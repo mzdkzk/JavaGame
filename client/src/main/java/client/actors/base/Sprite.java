@@ -6,7 +6,6 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public abstract class Sprite {
     protected int x;
@@ -27,15 +26,7 @@ public abstract class Sprite {
 
     public Sprite(String imagePath, int x, int y) {
         this(x, y);
-        try {
-            loadImage(imagePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void loadImage(String path) throws IOException {
-        image = Game.resources.get(path);
+        image = Game.resources.get(imagePath);
         width = image.getWidth(null);
         height = image.getHeight(null);
     }
