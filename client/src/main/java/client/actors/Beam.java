@@ -2,10 +2,10 @@ package client.actors;
 
 import client.actors.base.CollidableSprite;
 import client.actors.base.Sprite;
-import client.game.Game;
 
 public class Beam extends CollidableSprite {
     private Player fromPlayer;
+    private int lifespan = 4;
 
     public Beam(Player from) {
         super("beam.png");
@@ -18,13 +18,14 @@ public class Beam extends CollidableSprite {
 
     @Override
     public void update() {
-        double moveSpeed = 20.0;
+        if (lifespan <= 0) {
+            destroy();
+        }
+        lifespan--;
+
+        double moveSpeed = 70.0;
         x += Math.cos(angle) * moveSpeed;
         y += Math.sin(angle) * moveSpeed;
-
-        if (Game.stage.getWidth() / 2 <= Math.abs(x) || Game.stage.getHeight() / 2 <= Math.abs(y)) {
-            Game.removeChild(this);
-        }
     }
 
     @Override
