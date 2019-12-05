@@ -8,6 +8,7 @@ import client.event.Event;
 import client.event.EventType;
 import client.game.logging.Log;
 import client.game.logging.Logger;
+import client.game.resource.ResourceManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +21,7 @@ public class Game extends JPanel implements ActionListener {
     private static ArrayList<Sprite> children = new ArrayList<>();
     private static ArrayList<Event> eventQueue = new ArrayList<>();
 
+    public static ResourceManager resources = new ResourceManager();
     public static Controller controller = new Controller();
     public static GameCamera camera = new GameCamera();
     public static Stage stage = new Stage();

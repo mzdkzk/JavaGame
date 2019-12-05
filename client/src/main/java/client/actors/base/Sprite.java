@@ -2,13 +2,11 @@ package client.actors.base;
 
 import client.game.Game;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URL;
 
 public abstract class Sprite {
     protected int x;
@@ -37,8 +35,7 @@ public abstract class Sprite {
     }
 
     private void loadImage(String path) throws IOException {
-        URL url = getClass().getClassLoader().getResource(path);
-        image = ImageIO.read(url);
+        image = Game.resources.get(path);
         width = image.getWidth(null);
         height = image.getHeight(null);
     }
