@@ -6,7 +6,7 @@ import client.game.resource.Resources;
 
 public class Beam extends CollidableSprite {
     private Player fromPlayer;
-    private int lifespan = 4;
+    private int lifespan = 60;
 
     public Beam(Player from) {
         super(Resources.BEAM);
@@ -24,7 +24,7 @@ public class Beam extends CollidableSprite {
         }
         lifespan--;
 
-        double moveSpeed = 70.0;
+        double moveSpeed = 10.0;
         x += Math.cos(angle) * moveSpeed;
         y += Math.sin(angle) * moveSpeed;
     }
