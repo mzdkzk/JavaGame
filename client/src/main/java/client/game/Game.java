@@ -76,8 +76,7 @@ public class Game extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // 前フレームで作成したイベントを受け取り、全て適用して再描画
-        ArrayList<Event> eventQueue = new ArrayList<>(Game.eventQueue);
-        for (Event event : eventQueue) {
+        for (Event event : Game.eventQueue) {
             if (!joinedPlayers.containsKey(event.getSenderId())) {
                 joinPlayer(event);
             }
@@ -97,8 +96,6 @@ public class Game extends JPanel implements ActionListener {
             event.isDone = true;
         }
         repaint();
-
-        // イベント適用中にも新しいイベントが追加されているので、削除対象はフラグで管理
         Game.eventQueue.removeIf(event -> event.isDone);
 
         // コントローラーの入力などをもとに次フレームで適用されるイベントを作成し送信する
