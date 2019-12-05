@@ -15,8 +15,13 @@ import java.awt.event.KeyEvent;
 
 public class Player extends CollidableSprite {
     Event event;
+
     private final int MAX_HP = 10;
     private int hp = MAX_HP;
+
+    private final int MAX_FIRE_SPAN = 2;
+    private int fireSpan = 0;
+
     private double dx;
     private final double MAX_DX = 15;
     private double dy;
@@ -30,10 +35,6 @@ public class Player extends CollidableSprite {
 
     public void setEvent(Event event) {
         this.event = event;
-    }
-
-    private void fire() {
-        MyClient.send(new Event(EventType.FIRE, x, y, angle));
     }
 
     public void hit(int damage) {
@@ -69,9 +70,16 @@ public class Player extends CollidableSprite {
         if (controller.isKeyDown(KeyEvent.VK_S)) {
             dy += moveSpeed;
         }
-        if (controller.isPointerDown(PointerType.LEFT)) {
-            fire();
+
+        // 弾発射
+        if (fireSpan > 0) {
+            fireSpan--;
+        } else if (controller.isPointerDown(PointerType.LEFT)) {
+            MyClient.send(new Event(EventType.FIRE, x, y, angle));
+            fireSpan = MAX_FIRE_SPAN;
         }
+        Logger.update("player.fireSpan", fireSpan + "f");
+
         Point mousePoint = controller.getMousePoint();
         Point playerRelativePoint = Game.getPlayer().getRelativePos();
         double nextAngle = 0.0;
