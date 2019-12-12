@@ -6,8 +6,9 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 
-public abstract class Sprite {
+public abstract class Sprite extends Element {
     protected int x;
     protected int y;
     protected double angle;
@@ -85,7 +86,30 @@ public abstract class Sprite {
     }
 
     public void destroy() {
-        Game.removeChild(this);
+        Game.getRoot().removeChild(this);
+    }
+
+    public void drawAll(Graphics g, ImageObserver observer) {
+        draw(g, observer);
+        if (!children.isEmpty()) {
+            for (Sprite child : children) {
+                child.drawAll(g, observer);
+            }
+        }
+    }
+
+    public void draw(Graphics g, ImageObserver observer) {
+        Point relativePos = Game.camera.toRelativePos(x, y);
+        g.drawImage(getImage(), relativePos.x, relativePos.y, observer);
+    }
+
+    public void updateAll() {
+        update();
+        if (!children.isEmpty()) {
+            for (Sprite child : children) {
+                child.updateAll();
+            }
+        }
     }
 
     abstract public void update();

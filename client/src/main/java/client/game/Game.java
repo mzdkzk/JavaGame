@@ -3,6 +3,7 @@ package client.game;
 import client.MyClient;
 import client.actors.*;
 import client.actors.base.CollidableSprite;
+import client.actors.base.Element;
 import client.actors.base.Sprite;
 import client.event.Event;
 import client.event.EventType;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Game extends JPanel implements ActionListener {
-    private static ArrayList<Sprite> children = new ArrayList<>();
+    private static Element root = new Element();
     private static ArrayList<Event> eventQueue = new ArrayList<>();
 
     public static ResourceManager resources = new ResourceManager();
@@ -38,12 +39,12 @@ public class Game extends JPanel implements ActionListener {
         addMouseMotionListener(controller);
         setFocusable(true);
 
-        addChild(stage);
+        root.addChild(stage);
 
         Event playerJoinEvent = new Event(EventType.UPDATE, 10, 10);
         joinPlayer(playerJoinEvent);
 
-        addChild(camera);
+        root.addChild(camera);
 
         timer = new Timer(1000 / FPS, this);
         timer.start();
@@ -53,12 +54,8 @@ public class Game extends JPanel implements ActionListener {
         return joinedPlayers.get(MyClient.getUserId());
     }
 
-    public static void addChild(Sprite child) {
-        children.add(child);
-    }
-
-    public static void removeChild(Sprite child) {
-        children.remove(child);
+    public static Element getRoot() {
+        return root;
     }
 
     public static void addEvent(Event event) {
@@ -71,7 +68,7 @@ public class Game extends JPanel implements ActionListener {
             player = new OtherPlayer(event);
         }
         joinedPlayers.put(event.getSenderId(), player);
-        addChild(player);
+        root.addChild(player);
     }
 
     @Override
@@ -88,11 +85,11 @@ public class Game extends JPanel implements ActionListener {
                     sender.setEvent(event);
                     break;
                 case FIRE:
-                    addChild(new Beam(sender));
+                    root.addChild(new Beam(sender));
                     break;
                 case DISCONNECT:
                     joinedPlayers.remove(event.getSenderId());
-                    removeChild(sender);
+                    root.removeChild(sender);
                     break;
             }
             event.isDone = true;
@@ -103,14 +100,13 @@ public class Game extends JPanel implements ActionListener {
         Game.eventQueue.removeIf(event -> event.isDone);
 
         // コントローラーの入力などをもとに次フレームで適用されるイベントを作成し送信する
-        ArrayList<Sprite> children = new ArrayList<>(Game.children);
-        for (Sprite child : children) {
-            child.update();
+        for (Sprite child : root.cloneChildren()) {
+            child.updateAll();
         }
 
         // 衝突判定のためCollidableSpriteだけのリストを作る
         ArrayList<CollidableSprite> colChildren = new ArrayList<>();
-        for (Sprite child : children) {
+        for (Sprite child : root.cloneChildren()) {
             if (child instanceof CollidableSprite) {
                 CollidableSprite colChild = (CollidableSprite)child;
                 colChildren.add(colChild);
@@ -143,9 +139,8 @@ public class Game extends JPanel implements ActionListener {
     }
 
     private void drawObjects(Graphics g) {
-        for (Sprite sprite : children) {
-            Point relativePos = camera.toRelativePos(sprite.getX(), sprite.getY());
-            g.drawImage(sprite.getImage(), relativePos.x, relativePos.y, this);
+        for (Sprite child : root.cloneChildren()) {
+            child.drawAll(g, this);
         }
 
         g.setColor(Color.BLACK);
