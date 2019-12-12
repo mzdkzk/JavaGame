@@ -1,4 +1,4 @@
-package client.game;
+package client.game.input;
 
 import client.game.logging.Logger;
 

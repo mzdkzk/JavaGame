@@ -6,6 +6,7 @@ import client.actors.base.CollidableSprite;
 import client.actors.base.Sprite;
 import client.event.Event;
 import client.event.EventType;
+import client.game.input.Controller;
 import client.game.logging.Log;
 import client.game.logging.Logger;
 import client.game.resource.ResourceManager;

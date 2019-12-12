@@ -1,4 +1,4 @@
-package client.game;
+package client.game.input;
 
 public class PointerType {
     private PointerType() {
