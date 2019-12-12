@@ -7,5 +7,6 @@ public class Resources {
     public static final String BEAM = "beam.png";
     public static final String GRID = "grid.png";
     public static final String PLAYER = "player.png";
-    public static final String[] ALL = {BEAM, GRID, PLAYER};
+    public static final String UNIT = "unit.png";
+    public static final String[] ALL = {PLAYER, BEAM, GRID, UNIT};
 }
