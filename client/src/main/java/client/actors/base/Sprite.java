@@ -9,6 +9,8 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 
 public abstract class Sprite extends Element {
+    protected int id;
+    private static int currentId;
     protected int x;
     protected int y;
     protected double angle;
@@ -17,6 +19,7 @@ public abstract class Sprite extends Element {
     private BufferedImage image;
 
     public Sprite(int x, int y) {
+        this.id = ++currentId;
         this.x = x;
         this.y = y;
     }
@@ -30,6 +33,10 @@ public abstract class Sprite extends Element {
         image = Game.resources.get(imagePath);
         width = image.getWidth(null);
         height = image.getHeight(null);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public BufferedImage getImage() {

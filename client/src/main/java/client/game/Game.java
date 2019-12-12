@@ -86,6 +86,9 @@ public class Game extends JPanel implements ActionListener {
                     break;
                 case FIRE:
                     root.addChild(new Beam(sender));
+                    for (Sprite unit : sender.cloneChildren()) {
+                        root.addChild(new Beam(unit));
+                    }
                     break;
                 case DISCONNECT:
                     joinedPlayers.remove(event.getSenderId());
@@ -117,6 +120,7 @@ public class Game extends JPanel implements ActionListener {
         for (CollidableSprite child : colChildren) {
             for (CollidableSprite other : colChildren) {
                 if (child == other) continue;
+                if (child instanceof Beam && other instanceof Beam) continue;
 
                 boolean isOtherInCollision = child.collisions.contains(other);
                 if (child.isInCollision(other)) {
@@ -129,6 +133,8 @@ public class Game extends JPanel implements ActionListener {
                 }
             }
         }
+
+        Logger.update("game.childrenSize", root.cloneChildren().size() + "");
     }
 
     @Override

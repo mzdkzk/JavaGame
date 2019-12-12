@@ -24,9 +24,9 @@ public class Player extends CollidableSprite {
     private int fireSpan = 0;
 
     private double dx;
-    private final double MAX_DX = 15;
+    private final double MAX_DX = 7;
     private double dy;
-    private final double MAX_DY = 15;
+    private final double MAX_DY = 7;
     private double moveSpeed = 3.5;
 
     public Player(Event event) {
@@ -81,6 +81,7 @@ public class Player extends CollidableSprite {
         }
         Logger.update("player.fireSpan", fireSpan + "f");
 
+        // 角度計算
         Point mousePoint = controller.getMousePoint();
         Player player = Game.getPlayer();
         Point playerPoint = player.getRelativePos();
