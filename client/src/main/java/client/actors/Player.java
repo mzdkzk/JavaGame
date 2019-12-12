@@ -82,10 +82,13 @@ public class Player extends CollidableSprite {
         Logger.update("player.fireSpan", fireSpan + "f");
 
         Point mousePoint = controller.getMousePoint();
-        Point playerRelativePoint = Game.getPlayer().getRelativePos();
+        Player player = Game.getPlayer();
+        Point playerPoint = player.getRelativePos();
+        playerPoint.x += player.getWidth() / 2;
+        playerPoint.y += player.getHeight() / 2;
         double nextAngle = 0.0;
         if (mousePoint != null) {
-            nextAngle = Math.atan2(mousePoint.y - playerRelativePoint.y, mousePoint.x - playerRelativePoint.x);
+            nextAngle = Math.atan2(mousePoint.y - playerPoint.y, mousePoint.x - playerPoint.x);
         }
 
         // 減速処理
