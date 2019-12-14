@@ -112,13 +112,15 @@ public class Game extends JPanel implements ActionListener {
                 if (child == other) continue;
                 if (child instanceof Beam && other instanceof Beam) continue;
 
-                boolean isOtherInCollision = child.collisions.contains(other);
-                if (child.isInCollision(other)) {
-                    if (!isOtherInCollision) {
+                // 衝突したらonCollisionEnterを呼んでリストに追加
+                // すでに衝突済みならリストから除去
+                boolean isAlreadyCollidedWithOther = child.collisions.contains(other);
+                if (child.isCollidedWith(other)) {
+                    if (!isAlreadyCollidedWithOther) {
                         child.collisions.add(other);
                         child.onCollisionEnter(other);
                     }
-                } else if (isOtherInCollision) {
+                } else if (isAlreadyCollidedWithOther) {
                     child.collisions.remove(other);
                 }
             }

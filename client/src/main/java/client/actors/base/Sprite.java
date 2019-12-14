@@ -125,7 +125,7 @@ public abstract class Sprite extends Element {
 
     }
 
-    public boolean isInCollision(Sprite other) {
+    public boolean isCollidedWith(Sprite other) {
         // Spriteのwidthを半径とみなして、2つの半径の和が2点間距離より大きいかどうか
         // 0.5より大きい数を掛けると判定が小さくなる
         double minifyCollisionRate = 0.5;
