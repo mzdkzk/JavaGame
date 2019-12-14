@@ -8,10 +8,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 
-public class ResourceManager {
+public class Loader {
     private HashMap<String, BufferedImage> data = new HashMap<>();
 
-    public ResourceManager() {
+    public Loader() {
         for (String path : Resources.ALL) {
             URL url = getClass().getClassLoader().getResource(path);
             try {
@@ -24,6 +24,9 @@ public class ResourceManager {
     }
 
     public BufferedImage get(String path) {
+        if (!data.containsKey(path)) {
+            MyClient.showError(path + "が読み込まれていません");
+        }
         return data.get(path);
     }
 }

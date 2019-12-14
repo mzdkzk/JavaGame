@@ -32,7 +32,7 @@ public abstract class Sprite extends Element {
 
     public Sprite(String imagePath, int x, int y) {
         this(x, y);
-        image = Game.resources.get(imagePath);
+        image = Game.loader.get(imagePath);
         width = image.getWidth(null);
         height = image.getHeight(null);
     }

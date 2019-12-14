@@ -1,7 +1,10 @@
 package client.game;
 
 import client.MyClient;
-import client.actors.*;
+import client.actors.Beam;
+import client.actors.GameCamera;
+import client.actors.Player;
+import client.actors.Stage;
 import client.actors.base.Element;
 import client.actors.base.Sprite;
 import client.event.Event;
@@ -9,7 +12,7 @@ import client.event.EventType;
 import client.game.input.Controller;
 import client.game.logging.Log;
 import client.game.logging.Logger;
-import client.game.resource.ResourceManager;
+import client.game.resource.Loader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +25,7 @@ public class Game extends JPanel implements ActionListener {
     private static Element root = new Element();
     private static ArrayList<Event> eventQueue = new ArrayList<>();
 
-    public static ResourceManager resources = new ResourceManager();
+    public static Loader loader = new Loader();
     public static Controller controller = new Controller();
     public static GameCamera camera = new GameCamera();
     public static Stage stage = new Stage();

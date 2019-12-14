@@ -126,4 +126,8 @@ public class MyClient extends JFrame {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
         System.exit(1);
     }
+
+    public static void showError(String message) {
+        showError(message, message);
+    }
 }
