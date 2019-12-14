@@ -16,6 +16,7 @@ public class Item extends Sprite {
                 // TODO: Eventへの置き換え
                 player.addChild(new Unit(player));
             }
+            destroy();
         }
     }
 }
