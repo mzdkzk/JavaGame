@@ -1,10 +1,9 @@
 package client.actors;
 
-import client.actors.base.CollidableSprite;
 import client.actors.base.Sprite;
 import client.game.resource.Resources;
 
-public class Beam extends CollidableSprite {
+public class Beam extends Sprite {
     private Sprite player;
     private int lifespan = 60;
 

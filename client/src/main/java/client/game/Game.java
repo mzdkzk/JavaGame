@@ -2,7 +2,6 @@ package client.game;
 
 import client.MyClient;
 import client.actors.*;
-import client.actors.base.CollidableSprite;
 import client.actors.base.Element;
 import client.actors.base.Sprite;
 import client.event.Event;
@@ -107,18 +106,9 @@ public class Game extends JPanel implements ActionListener {
             child.updateAll();
         }
 
-        // 衝突判定のためCollidableSpriteだけのリストを作る
-        ArrayList<CollidableSprite> colChildren = new ArrayList<>();
-        for (Sprite child : root.cloneChildren()) {
-            if (child instanceof CollidableSprite) {
-                CollidableSprite colChild = (CollidableSprite)child;
-                colChildren.add(colChild);
-            }
-        }
-
         // 更新後の位置で衝突判定を行う
-        for (CollidableSprite child : colChildren) {
-            for (CollidableSprite other : colChildren) {
+        for (Sprite child : root.cloneChildren()) {
+            for (Sprite other : child.cloneChildren()) {
                 if (child == other) continue;
                 if (child instanceof Beam && other instanceof Beam) continue;
 

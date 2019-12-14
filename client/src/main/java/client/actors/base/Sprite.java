@@ -7,6 +7,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
+import java.util.ArrayList;
 
 public abstract class Sprite extends Element {
     protected int id;
@@ -17,6 +18,7 @@ public abstract class Sprite extends Element {
     private int width;
     private int height;
     private BufferedImage image;
+    public ArrayList<Sprite> collisions = new ArrayList<>();
 
     public Sprite(int x, int y) {
         this.id = ++currentId;
@@ -119,5 +121,22 @@ public abstract class Sprite extends Element {
         }
     }
 
-    abstract public void update();
+    public void update() {
+
+    }
+
+    public boolean isInCollision(Sprite other) {
+        // Spriteのwidthを半径とみなして、2つの半径の和が2点間距離より大きいかどうか
+        // 0.5より大きい数を掛けると判定が小さくなる
+        double minifyCollisionRate = 0.5;
+        double sumRadius = (other.getWidth() + getWidth()) * 0.5 * minifyCollisionRate;
+        double distance = Math.sqrt(
+                Math.pow(other.getCenterX() - getCenterX(), 2) + Math.pow(other.getCenterY() - getCenterY(), 2)
+        );
+        return sumRadius > distance;
+    }
+
+    public void onCollisionEnter(Sprite other) {
+
+    }
 }

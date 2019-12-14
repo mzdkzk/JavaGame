@@ -1,7 +1,6 @@
 package client.actors;
 
 import client.MyClient;
-import client.actors.base.CollidableSprite;
 import client.actors.base.Sprite;
 import client.event.Event;
 import client.event.EventType;
@@ -14,7 +13,7 @@ import client.game.resource.Resources;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class Player extends CollidableSprite {
+public class Player extends Sprite {
     Event event;
 
     private final int MAX_HP = 10;
@@ -32,6 +31,11 @@ public class Player extends CollidableSprite {
     public Player(Event event) {
         super(Resources.PLAYER, event.getX(), event.getY());
         this.event = event;
+        addChild(new Unit(this));
+        addChild(new Unit(this));
+        addChild(new Unit(this));
+        addChild(new Unit(this));
+        addChild(new Unit(this));
     }
 
     public void setEvent(Event event) {

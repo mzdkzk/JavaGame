@@ -9,9 +9,4 @@ public class Stage extends Sprite {
         x -= getWidth() / 2;
         y -= getHeight() / 2;
     }
-
-    @Override
-    public void update() {
-
-    }
 }

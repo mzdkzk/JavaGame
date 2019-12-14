@@ -1,12 +1,11 @@
 package client.actors;
 
-import client.actors.base.CollidableSprite;
 import client.actors.base.Sprite;
 import client.game.resource.Resources;
 
 import java.util.ArrayList;
 
-public class Unit extends CollidableSprite {
+public class Unit extends Sprite {
     Player player;
 
     public Unit(Player player) {
@@ -31,10 +30,5 @@ public class Unit extends CollidableSprite {
         x = (int)(Math.cos(divideAngle * olderUnitSize()) * 70) + player.getCenterX() - getWidth() / 2;
         y = (int)(Math.sin(divideAngle * olderUnitSize()) * 70) + player.getCenterY() - getHeight() / 2;
         angle = player.getAngle();
-    }
-
-    @Override
-    public void onCollisionEnter(Sprite other) {
-
     }
 }
