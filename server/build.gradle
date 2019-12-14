@@ -22,7 +22,7 @@ repositories {
 
 application {
     // Define the main class for the application
-    mainClassName = 'server.MyGameServer'
+    mainClassName = 'server.MyServer'
 }
 
 tasks.withType(JavaCompile) {
@@ -31,6 +31,6 @@ tasks.withType(JavaCompile) {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'server.MyGameServer'
+        attributes 'Main-Class': 'server.MyServer'
     }
 }
