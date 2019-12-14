@@ -16,4 +16,15 @@ public class Element {
     public ArrayList<Sprite> cloneChildren() {
         return new ArrayList<>(children);
     }
+
+    public ArrayList<Sprite> cloneAllChildren() {
+        ArrayList<Sprite> result = new ArrayList<>();
+        for (Sprite child : cloneChildren()) {
+            result.add(child);
+            if (!child.children.isEmpty()) {
+                result.addAll(child.cloneAllChildren());
+            }
+        }
+        return result;
+    }
 }
