@@ -47,17 +47,18 @@ public class Player extends Sprite {
 
     @Override
     public void update() {
+        // 最新イベントの適用
+        x = event.getX();
+        y = event.getY();
+        angle = event.getAngle();
+        if (event.isOther()) return;
+
         // ゲームオーバー判定
         if (hp <= 0) {
             MyClient.send(new Event(EventType.DISCONNECT));
             MyClient.showInfo("ゲームオーバー！", "HPが0になりました");
             System.exit(0);
         }
-
-        // 最新イベントの適用
-        x = event.getX();
-        y = event.getY();
-        angle = event.getAngle();
 
         // コントローラー入力受け取り
         Controller controller = Game.controller;

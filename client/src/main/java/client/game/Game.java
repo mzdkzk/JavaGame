@@ -63,9 +63,6 @@ public class Game extends JPanel implements ActionListener {
 
     private static void joinPlayer(Event event) {
         Player player = new Player(event);
-        if (event.isOther()) {
-            player = new OtherPlayer(event);
-        }
         joinedPlayers.put(event.getSenderId(), player);
         root.addChild(player);
     }
