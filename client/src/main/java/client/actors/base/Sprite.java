@@ -98,27 +98,9 @@ public abstract class Sprite extends Element {
         Game.getRoot().removeChild(this);
     }
 
-    public void drawAll(Graphics g, ImageObserver observer) {
-        draw(g, observer);
-        if (!children.isEmpty()) {
-            for (Sprite child : children) {
-                child.drawAll(g, observer);
-            }
-        }
-    }
-
     public void draw(Graphics g, ImageObserver observer) {
         Point relativePos = Game.camera.toRelativePos(x, y);
         g.drawImage(getImage(), relativePos.x, relativePos.y, observer);
-    }
-
-    public void updateAll() {
-        update();
-        if (!children.isEmpty()) {
-            for (Sprite child : children) {
-                child.updateAll();
-            }
-        }
     }
 
     public void update() {

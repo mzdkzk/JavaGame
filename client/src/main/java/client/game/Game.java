@@ -1,10 +1,7 @@
 package client.game;
 
 import client.MyClient;
-import client.actors.Beam;
-import client.actors.GameCamera;
-import client.actors.Player;
-import client.actors.Stage;
+import client.actors.*;
 import client.actors.base.Element;
 import client.actors.base.Sprite;
 import client.event.Event;
@@ -102,13 +99,14 @@ public class Game extends JPanel implements ActionListener {
         Game.eventQueue.removeIf(event -> event.isDone);
 
         // コントローラーの入力などをもとに次フレームで適用されるイベントを作成し送信する
-        for (Sprite child : root.cloneChildren()) {
-            child.updateAll();
+        ArrayList<Sprite> allChildren = root.cloneAllChildren();
+        for (Sprite child : allChildren) {
+            child.update();
         }
 
         // 更新後の位置で衝突判定を行う
-        for (Sprite child : root.cloneChildren()) {
-            for (Sprite other : child.cloneChildren()) {
+        for (Sprite child : allChildren) {
+            for (Sprite other : allChildren) {
                 if (child == other) continue;
                 if (child instanceof Beam && other instanceof Beam) continue;
 
@@ -126,7 +124,7 @@ public class Game extends JPanel implements ActionListener {
             }
         }
 
-        Logger.update("game.childrenSize", root.cloneChildren().size() + "");
+        Logger.update("game.childrenSize", allChildren.size() + "");
     }
 
     @Override
@@ -137,8 +135,8 @@ public class Game extends JPanel implements ActionListener {
     }
 
     private void drawObjects(Graphics g) {
-        for (Sprite child : root.cloneChildren()) {
-            child.drawAll(g, this);
+        for (Sprite child : root.cloneAllChildren()) {
+            child.draw(g, this);
         }
 
         g.setColor(Color.BLACK);
