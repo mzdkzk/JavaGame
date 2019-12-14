@@ -31,11 +31,6 @@ public class Player extends Sprite {
     public Player(Event event) {
         super(Resources.PLAYER, event.getX(), event.getY());
         this.event = event;
-        addChild(new Unit(this));
-        addChild(new Unit(this));
-        addChild(new Unit(this));
-        addChild(new Unit(this));
-        addChild(new Unit(this));
     }
 
     public void setEvent(Event event) {

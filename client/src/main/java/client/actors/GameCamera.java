@@ -29,8 +29,8 @@ public class GameCamera extends Sprite {
     @Override
     public void update() {
         Player player = Game.getPlayer();
-        int targetX = player.getX() - width / 2 + player.getWidth() / 2;
-        int targetY = player.getY() - height / 2 + player.getHeight() / 2;
+        int targetX = player.getCenterX() - width / 2;
+        int targetY = player.getCenterY() - height / 2;
         double easingRate = 0.2;
         pos.x += (targetX - pos.x) * easingRate;
         pos.y += (targetY - pos.y) * easingRate;
