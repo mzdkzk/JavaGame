@@ -27,8 +27,13 @@ public class Unit extends Sprite {
         int unitSize = player.cloneChildren().size();
         double divideAngle = (2 * Math.PI) / unitSize;
 
-        x = (int)(Math.cos(divideAngle * olderUnitSize()) * 70) + player.getCenterX() - getWidth() / 2;
-        y = (int)(Math.sin(divideAngle * olderUnitSize()) * 70) + player.getCenterY() - getHeight() / 2;
+        int unitOffset = 70;
+        int targetX = (int)(Math.cos(divideAngle * olderUnitSize()) * unitOffset) + player.getCenterX() - getWidth() / 2;
+        int targetY = (int)(Math.sin(divideAngle * olderUnitSize()) * unitOffset) + player.getCenterY() - getHeight() / 2;
+
+        double easingRate = 0.4;
+        x += (targetX - x) * easingRate;
+        y += (targetY - y) * easingRate;
         angle = player.getAngle();
     }
 }

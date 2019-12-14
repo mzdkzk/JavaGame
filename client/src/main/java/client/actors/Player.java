@@ -19,7 +19,7 @@ public class Player extends Sprite {
     private final int MAX_HP = 10;
     private int hp = MAX_HP;
 
-    private final int MAX_FIRE_SPAN = 2;
+    private final int MAX_FIRE_SPAN = 10;
     private int fireSpan = 0;
 
     private double dx;
@@ -31,6 +31,9 @@ public class Player extends Sprite {
     public Player(Event event) {
         super(Resources.PLAYER, event.getX(), event.getY());
         this.event = event;
+        addChild(new Unit(this));
+        addChild(new Unit(this));
+        addChild(new Unit(this));
     }
 
     public void setEvent(Event event) {
