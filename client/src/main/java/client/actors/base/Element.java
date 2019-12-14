@@ -3,9 +3,13 @@ package client.actors.base;
 import java.util.ArrayList;
 
 public class Element {
+    protected Sprite parent = null;
     protected ArrayList<Sprite> children = new ArrayList<>();
 
     public void addChild(Sprite child) {
+        if (this instanceof Sprite) {
+            child.parent = (Sprite)this;
+        }
         children.add(child);
     }
 

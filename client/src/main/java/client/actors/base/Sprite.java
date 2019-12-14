@@ -95,7 +95,11 @@ public abstract class Sprite extends Element {
     }
 
     public void destroy() {
-        Game.getRoot().removeChild(this);
+        if (parent == null) {
+            Game.getRoot().removeChild(this);
+        } else {
+            parent.removeChild(this);
+        }
     }
 
     public void draw(Graphics g, ImageObserver observer) {
