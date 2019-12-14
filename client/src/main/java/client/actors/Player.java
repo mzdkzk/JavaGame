@@ -40,6 +40,10 @@ public class Player extends Sprite {
         this.event = event;
     }
 
+    public boolean isUser() {
+        return event.getSenderId() == MyClient.getUserId();
+    }
+
     public void hit(int damage) {
         hp -= damage;
         Logger.update("player" + event.getSenderId() + ".hp", hp + "/" + MAX_HP);
