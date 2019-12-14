@@ -42,6 +42,9 @@ public class Game extends JPanel implements ActionListener {
 
         Event playerJoinEvent = new Event(EventType.UPDATE, 10, 10);
         joinPlayer(playerJoinEvent);
+        for (int i = 0; i < 3; i++) {
+            MyClient.send(new Event(EventType.UNIT));
+        }
 
         root.addChild(camera);
 
@@ -85,6 +88,9 @@ public class Game extends JPanel implements ActionListener {
                     for (Sprite unit : sender.cloneChildren()) {
                         root.addChild(new Beam(unit));
                     }
+                    break;
+                case UNIT:
+                    sender.addChild(new Unit(sender));
                     break;
                 case DISCONNECT:
                     joinedPlayers.remove(event.getSenderId());
