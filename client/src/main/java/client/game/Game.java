@@ -113,8 +113,11 @@ public class Game extends JPanel implements ActionListener {
         // 更新後の位置で衝突判定を行う
         for (Sprite child : allChildren) {
             for (Sprite other : allChildren) {
+                // 雑負荷対策
                 if (child == other) continue;
                 if (child instanceof Beam && other instanceof Beam) continue;
+                if (child instanceof Beam && other instanceof Item) continue;
+                if (child instanceof Item && other instanceof Beam) continue;
 
                 // 衝突したらonCollisionEnterを呼んでリストに追加
                 // すでに衝突済みならリストから除去
