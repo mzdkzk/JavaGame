@@ -1,19 +1,20 @@
 package client.actors;
 
+import client.actors.base.Hittable;
 import client.actors.base.Sprite;
 import client.game.resource.Resources;
 
 public class Beam extends Sprite {
-    private Sprite player;
+    private Sprite from;
     private int lifespan = 60;
 
-    public Beam(Sprite player) {
+    public Beam(Sprite from) {
         super(Resources.BEAM);
         int fireOffset = 30;
-        x = player.getCenterX() + (int)(Math.cos(player.getAngle()) * fireOffset) - getWidth() / 2;
-        y = player.getCenterY() + (int)(Math.sin(player.getAngle()) * fireOffset) - getHeight() / 2;
-        angle = player.getAngle();
-        this.player = player;
+        x = from.getCenterX() + (int)(Math.cos(from.getAngle()) * fireOffset) - getWidth() / 2;
+        y = from.getCenterY() + (int)(Math.sin(from.getAngle()) * fireOffset) - getHeight() / 2;
+        angle = from.getAngle();
+        this.from = from;
     }
 
     @Override
@@ -30,6 +31,14 @@ public class Beam extends Sprite {
 
     @Override
     public void onCollisionEnter(Sprite other) {
+        if (!(other instanceof Hittable)) return;
 
+        // fromとfrom.getParent()から発射したプレイヤーを特定し、
+        // 接触相手がプレイヤーかプレイヤーのユニットでなければヒット
+        Player player = from instanceof Player ? (Player)from : (Player)from.getParent();
+        if (other != player && other.getParent() != player) {
+            ((Hittable)other).hit(1);
+            destroy();
+        }
     }
 }

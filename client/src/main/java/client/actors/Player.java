@@ -1,6 +1,7 @@
 package client.actors;
 
 import client.MyClient;
+import client.actors.base.Hittable;
 import client.actors.base.Sprite;
 import client.event.Event;
 import client.event.EventType;
@@ -13,10 +14,10 @@ import client.game.resource.Resources;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class Player extends Sprite {
+public class Player extends Sprite implements Hittable {
     Event event;
 
-    private final int MAX_HP = 10;
+    private final int MAX_HP = 30;
     private int hp = MAX_HP;
 
     private final int MAX_FIRE_SPAN = 10;
@@ -44,6 +45,11 @@ public class Player extends Sprite {
     public void hit(int damage) {
         hp -= damage;
         Logger.update("player" + event.getSenderId() + ".hp", hp + "/" + MAX_HP);
+        if (hp <= 0) {
+            MyClient.send(new Event(EventType.DISCONNECT));
+            MyClient.showInfo("ゲームオーバー！", "HPが0になりました");
+            System.exit(0);
+        }
     }
 
     @Override
@@ -53,13 +59,6 @@ public class Player extends Sprite {
         y = event.getY();
         angle = event.getAngle();
         if (event.isOther()) return;
-
-        // ゲームオーバー判定
-        if (hp <= 0) {
-            MyClient.send(new Event(EventType.DISCONNECT));
-            MyClient.showInfo("ゲームオーバー！", "HPが0になりました");
-            System.exit(0);
-        }
 
         // コントローラー入力受け取り
         Controller controller = Game.controller;
@@ -117,10 +116,5 @@ public class Player extends Sprite {
         Logger.update("player.cameraPos", "cx=" + getRelativePos().x + ",cy=" + getRelativePos().y);
         Logger.update("player.velocity", "dx=" + dx + ",dy=" + dy);
         Logger.update("player.degree", getDegree() + "℃");
-    }
-
-    @Override
-    public void onCollisionEnter(Sprite other) {
-
     }
 }

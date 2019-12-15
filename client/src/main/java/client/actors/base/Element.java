@@ -6,6 +6,10 @@ public class Element {
     protected Sprite parent = null;
     protected ArrayList<Sprite> children = new ArrayList<>();
 
+    public Sprite getParent() {
+        return parent;
+    }
+
     public void addChild(Sprite child) {
         if (this instanceof Sprite) {
             child.parent = (Sprite)this;
