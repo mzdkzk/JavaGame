@@ -2,6 +2,7 @@ package client.actors;
 
 import client.actors.base.Hittable;
 import client.actors.base.Sprite;
+import client.game.Game;
 import client.game.resource.Resources;
 
 public class Beam extends Sprite {
@@ -38,6 +39,7 @@ public class Beam extends Sprite {
         Player player = from instanceof Player ? (Player)from : (Player)from.getParent();
         if (other != player && other.getParent() != player) {
             ((Hittable)other).hit(1);
+            Game.getRoot().addChild(new Bomb(x, y));
             destroy();
         }
     }
