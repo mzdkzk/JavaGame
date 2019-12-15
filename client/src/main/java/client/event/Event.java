@@ -10,6 +10,7 @@ public class Event {
     private int x;
     private int y;
     private double angle;
+    private int unitSize;
     public boolean isDone;
 
     public Event(EventType type) {
@@ -28,6 +29,11 @@ public class Event {
         this.angle = angle;
     }
 
+    public Event(EventType type, int x, int y, double angle, int unitSize) {
+        this(type, x, y, angle);
+        this.unitSize = unitSize;
+    }
+
     public Event(String eventString) {
         String[] args = eventString.split(" ");
         type = EventType.fromString(args[0]);
@@ -35,6 +41,7 @@ public class Event {
         x = Integer.parseInt(args[2]);
         y = Integer.parseInt(args[3]);
         angle = Double.parseDouble(args[4]);
+        unitSize = Integer.parseInt(args[5]);
     }
 
     public EventType getType() {
@@ -57,6 +64,10 @@ public class Event {
         return angle;
     }
 
+    public int getUnitSize() {
+        return unitSize;
+    }
+
     public Player getSender() {
         return Game.joinedPlayers.get(senderId);
     }
@@ -67,6 +78,6 @@ public class Event {
 
     @Override
     public String toString() {
-        return String.format("%s %d %d %d %f", type.name(), senderId, x, y, angle);
+        return String.format("%s %d %d %d %f %d", type.name(), senderId, x, y, angle, unitSize);
     }
 }

@@ -109,7 +109,7 @@ public class Player extends Sprite {
         // 次フレームの移動を送信
         double da = event.getAngle() - nextAngle;
         if (Math.abs(dx) > 0 || Math.abs(dy) > 0 || Math.abs(da) > 0.01) {
-            MyClient.send(new Event(EventType.UPDATE, nextX, nextY, nextAngle));
+            MyClient.send(new Event(EventType.UPDATE, nextX, nextY, nextAngle, cloneChildren().size()));
         }
 
         // デバッグログ

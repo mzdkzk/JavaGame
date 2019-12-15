@@ -40,11 +40,7 @@ public class Game extends JPanel implements ActionListener {
 
         root.addChild(stage);
 
-        Event playerJoinEvent = new Event(EventType.UPDATE, 10, 10);
-        joinPlayer(playerJoinEvent);
-        for (int i = 0; i < 3; i++) {
-            MyClient.send(new Event(EventType.UNIT));
-        }
+        MyClient.send(new Event(EventType.UPDATE, 10, 10, 0, 3));
 
         root.addChild(camera);
 
@@ -64,33 +60,34 @@ public class Game extends JPanel implements ActionListener {
         eventQueue.add(event);
     }
 
-    private static void joinPlayer(Event event) {
-        Player player = new Player(event);
-        joinedPlayers.put(event.getSenderId(), player);
-        root.addChild(player);
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         // 前フレームで作成したイベントを受け取り、全て適用して再描画
         ArrayList<Event> clonedEventQueue = new ArrayList<>(eventQueue);
         for (Event event : clonedEventQueue) {
-            if (!joinedPlayers.containsKey(event.getSenderId())) {
-                joinPlayer(event);
+            boolean isJoined = joinedPlayers.containsKey(event.getSenderId());
+            if (event.getType() == EventType.UPDATE && !isJoined) {
+                Player player = new Player(event);
+                joinedPlayers.put(event.getSenderId(), player);
+                root.addChild(player);
             }
             Player sender = event.getSender();
+
             switch (event.getType()) {
                 case UPDATE:
                     sender.setEvent(event);
+                    int unitSizeDiff = event.getUnitSize() - sender.cloneChildren().size();
+                    if (unitSizeDiff > 0) {
+                        for (int i = 0; i < unitSizeDiff; i++) {
+                            sender.addChild(new Unit(sender));
+                        }
+                    }
                     break;
                 case FIRE:
                     root.addChild(new Beam(sender));
                     for (Sprite unit : sender.cloneChildren()) {
                         root.addChild(new Beam(unit));
                     }
-                    break;
-                case UNIT:
-                    sender.addChild(new Unit(sender));
                     break;
                 case ITEM:
                     root.addChild(new Item(event));

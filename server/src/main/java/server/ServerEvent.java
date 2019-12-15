@@ -24,6 +24,6 @@ public class ServerEvent {
 
     @Override
     public String toString() {
-        return String.format("%s %d %d %d %f", type, senderId, x, y, angle);
+        return String.format("%s %d %d %d %f 0", type, senderId, x, y, angle);
     }
 }

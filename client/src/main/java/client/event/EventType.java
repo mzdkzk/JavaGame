@@ -5,7 +5,6 @@ import client.MyClient;
 public enum EventType {
     UPDATE,
     FIRE,
-    UNIT,
     ITEM,
     DISCONNECT;
 
