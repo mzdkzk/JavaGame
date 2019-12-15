@@ -7,8 +7,8 @@ import client.event.EventType;
 import client.game.resource.Resources;
 
 public class Item extends Sprite {
-    public Item(int x, int y) {
-        super(Resources.ITEM, x, y);
+    public Item(Event event) {
+        super(Resources.ITEM, event.getX(), event.getY());
     }
 
     @Override

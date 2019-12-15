@@ -92,6 +92,9 @@ public class Game extends JPanel implements ActionListener {
                 case UNIT:
                     sender.addChild(new Unit(sender));
                     break;
+                case ITEM:
+                    root.addChild(new Item(event));
+                    break;
                 case DISCONNECT:
                     joinedPlayers.remove(event.getSenderId());
                     root.removeChild(sender);

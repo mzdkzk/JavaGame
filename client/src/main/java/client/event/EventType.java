@@ -1,9 +1,12 @@
 package client.event;
 
+import client.MyClient;
+
 public enum EventType {
     UPDATE,
     FIRE,
     UNIT,
+    ITEM,
     DISCONNECT;
 
     static EventType fromString(String type) {
@@ -12,6 +15,7 @@ public enum EventType {
                 return eventType;
             }
         }
+        MyClient.showError("存在しないイベントを受け取りました");
         return null;
     }
 }

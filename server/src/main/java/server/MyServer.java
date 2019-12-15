@@ -12,6 +12,7 @@ public class MyServer {
         try {
             System.out.println("The server has launched!");
             ServerSocket server = new ServerSocket(10000);
+            new ItemThread().start();
             threads = new ClientThread[maxConnectionCount];
             while (true) {
                 Socket acceptedSocket = server.accept();
@@ -28,7 +29,7 @@ public class MyServer {
         new MyServer().ready();
     }
 
-    static void SendAll(String str) {
+    static void sendAll(String str) {
         for (ClientThread thread : threads) {
             if (thread != null && thread.isActive) {
                 thread.writer.println(str);
@@ -37,5 +38,8 @@ public class MyServer {
             }
         }
     }
-}
 
+    static void sendAll(ServerEvent event) {
+        sendAll(event.toString());
+    }
+}

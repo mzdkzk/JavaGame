@@ -30,7 +30,7 @@ class ClientThread extends Thread {
                 String str = reader.readLine();
                 System.out.println("Received from client No." + id + ", Messages: " + str);
                 if (str != null) {//このソケット（バッファ）に入力があるかをチェック
-                    MyServer.SendAll(str);
+                    MyServer.sendAll(str);
                 }
             }
         } catch (Exception e) {
