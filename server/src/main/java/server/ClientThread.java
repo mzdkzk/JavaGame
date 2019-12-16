@@ -1,5 +1,6 @@
 package server;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,6 +26,11 @@ class ClientThread extends Thread {
     public void run() {
         try {
             writer.println(id);
+
+            for (Integer itemId : ItemThread.items.keySet()) {
+                Point itemPoint = ItemThread.items.get(itemId);
+                MyServer.send(id, new ServerEvent("ITEM", itemPoint.x, itemPoint.y));
+            }
 
             while (true) { //ソケットへの入力を監視する
                 String str = reader.readLine();

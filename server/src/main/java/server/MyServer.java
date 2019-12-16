@@ -29,12 +29,21 @@ public class MyServer {
         new MyServer().ready();
     }
 
+    static void send(Integer id, String str) {
+        ClientThread thread = threads[id];
+        thread.writer.println(str);
+        thread.writer.flush();
+        System.out.println("Send messages to client No. " + thread.id);
+    }
+
+    static void send(Integer id, ServerEvent event) {
+        send(id, event.toString());
+    }
+
     static void sendAll(String str) {
-        for (ClientThread thread : threads) {
-            if (thread != null && thread.isActive) {
-                thread.writer.println(str);
-                thread.writer.flush();
-                System.out.println("Send messages to client No. " + thread.id);
+        for (int id = 0; id < threads.length; id++) {
+            if (threads[id] != null && threads[id].isActive) {
+                send(id, str);
             }
         }
     }
