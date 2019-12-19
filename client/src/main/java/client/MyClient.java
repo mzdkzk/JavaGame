@@ -62,25 +62,21 @@ public class MyClient extends JFrame {
     }
 
     private MyClient() {
-        connectServer();
-
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 MyClient.send(new Event(EventType.DISCONNECT));
             }
         });
-
-        Game game = new Game();
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("MyGame");
         setSize(Game.camera.getWidth(), Game.camera.getHeight());
 
+        Game game = new Game();
         Container container = getContentPane(); //フレームのペインを取得する
         container.add(game);
     }
 
-    private void connectServer() {
+    public static void connectServer() {
         try {
             socket = new Socket("localhost", 10000);
         } catch (UnknownHostException e) {
@@ -89,6 +85,11 @@ public class MyClient extends JFrame {
             showError("サーバーに接続できませんでした", e.getMessage());
         }
         new LocalClientThread().start();
+        // LocalClientThreadの処理開始より先にIDを使用しないように
+        while (true) {
+            System.out.println("待機中…");
+            if (userId != 0) break;
+        }
     }
 
     public static void main(String[] args) {

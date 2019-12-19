@@ -33,6 +33,8 @@ public class Game extends JPanel implements ActionListener {
     private final int FPS = 30;
 
     public Game() {
+        MyClient.connectServer();
+
         addKeyListener(controller);
         addMouseListener(controller);
         addMouseMotionListener(controller);
