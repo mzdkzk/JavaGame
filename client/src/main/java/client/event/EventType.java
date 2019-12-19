@@ -6,6 +6,7 @@ public enum EventType {
     UPDATE,
     FIRE,
     ITEM,
+    ITEM_DELETE,
     DISCONNECT;
 
     static EventType fromString(String type) {

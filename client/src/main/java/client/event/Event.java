@@ -7,6 +7,7 @@ import client.game.Game;
 public class Event {
     private EventType type;
     private int senderId;
+    private int objectId;
     private int x;
     private int y;
     private double angle;
@@ -16,6 +17,7 @@ public class Event {
     public Event(EventType type) {
         this.type = type;
         this.senderId = MyClient.getUserId();
+        this.objectId = this.senderId;
     }
 
     public Event(EventType type, int x, int y) {
@@ -38,10 +40,11 @@ public class Event {
         String[] args = eventString.split(" ");
         type = EventType.fromString(args[0]);
         senderId = Integer.parseInt(args[1]);
-        x = Integer.parseInt(args[2]);
-        y = Integer.parseInt(args[3]);
-        angle = Double.parseDouble(args[4]);
-        unitSize = Integer.parseInt(args[5]);
+        objectId = Integer.parseInt(args[2]);
+        x = Integer.parseInt(args[3]);
+        y = Integer.parseInt(args[4]);
+        angle = Double.parseDouble(args[5]);
+        unitSize = Integer.parseInt(args[6]);
     }
 
     public EventType getType() {
@@ -58,6 +61,15 @@ public class Event {
 
     public int getSenderId() {
         return senderId;
+    }
+
+    public int getObjectId() {
+        return objectId;
+    }
+
+    public Event with(int objectId) {
+        this.objectId = objectId;
+        return this;
     }
 
     public double getAngle() {
@@ -78,6 +90,6 @@ public class Event {
 
     @Override
     public String toString() {
-        return String.format("%s %d %d %d %f %d", type.name(), senderId, x, y, angle, unitSize);
+        return String.format("%s %d %d %d %d %f %d", type.name(), senderId, objectId, x, y, angle, unitSize);
     }
 }

@@ -1,5 +1,7 @@
 package server;
 
+import server.event.ServerEvent;
+
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -33,7 +35,7 @@ public class MyServer {
         ClientThread thread = threads[id];
         thread.writer.println(str);
         thread.writer.flush();
-        System.out.println("Send messages to client No. " + thread.id);
+        System.out.println("Send messages to client No. " + thread.id + ": " + str);
     }
 
     static void send(Integer id, ServerEvent event) {

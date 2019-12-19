@@ -92,6 +92,17 @@ public class Game extends JPanel implements ActionListener {
                 case ITEM:
                     root.addChild(new Item(event));
                     break;
+                case ITEM_DELETE:
+                    for (Sprite child : root.cloneChildren()) {
+                        if (child instanceof Item) {
+                            Item item = (Item)child;
+                            if (item.getItemId() == event.getObjectId()) {
+                                sender.addChild(new Unit(sender));
+                                item.destroy();
+                            }
+                        }
+                    }
+                    break;
                 case DISCONNECT:
                     joinedPlayers.remove(event.getSenderId());
                     root.removeChild(sender);
