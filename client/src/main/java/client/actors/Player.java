@@ -20,6 +20,7 @@ public class Player extends Sprite implements Hittable {
     private final int MAX_HP = 30;
     private int hp = MAX_HP;
 
+    public static final int MAX_UNIT_SIZE = 20;
     private final int MAX_FIRE_SPAN = 10;
     private int fireSpan = 0;
 
@@ -40,6 +41,10 @@ public class Player extends Sprite implements Hittable {
 
     public boolean isUser() {
         return event.getSenderId() == MyClient.getUserId();
+    }
+
+    public boolean canAddUnit() {
+        return cloneChildren().size() <= MAX_UNIT_SIZE;
     }
 
     public void hit(int damage) {

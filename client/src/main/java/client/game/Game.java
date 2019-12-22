@@ -69,21 +69,24 @@ public class Game extends JPanel implements ActionListener {
         for (Event event : clonedEventQueue) {
             boolean isJoined = joinedPlayers.containsKey(event.getSenderId());
             if (event.getType() == EventType.UPDATE && !isJoined) {
+                // 初めてUPDATEイベントを送信したユーザーをジョイン
                 Player player = new Player(event);
                 joinedPlayers.put(event.getSenderId(), player);
                 root.addChild(player);
+
+                // ジョインしたユーザーにユニット付与
+                int unitSizeDiff = event.getUnitSize() - player.cloneChildren().size();
+                if (unitSizeDiff > 0) {
+                    for (int i = 0; i < unitSizeDiff; i++) {
+                        player.addChild(new Unit(player));
+                    }
+                }
             }
             Player sender = event.getSender();
 
             switch (event.getType()) {
                 case UPDATE:
                     sender.setEvent(event);
-                    int unitSizeDiff = event.getUnitSize() - sender.cloneChildren().size();
-                    if (unitSizeDiff > 0) {
-                        for (int i = 0; i < unitSizeDiff; i++) {
-                            sender.addChild(new Unit(sender));
-                        }
-                    }
                     break;
                 case FIRE:
                     root.addChild(new Beam(sender));
@@ -98,7 +101,10 @@ public class Game extends JPanel implements ActionListener {
                     for (Sprite child : root.cloneChildren()) {
                         if (child instanceof Item) {
                             Item item = (Item)child;
-                            if (item.getItemId() == event.getObjectId()) {
+                            if (item.getItemId() != event.getObjectId()) {
+                                continue;
+                            }
+                            if (sender.canAddUnit()) {
                                 sender.addChild(new Unit(sender));
                                 item.destroy();
                             }
