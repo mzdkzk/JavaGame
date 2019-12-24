@@ -66,6 +66,7 @@ public class Controller implements KeyListener, MouseMotionListener, MouseListen
     @Override
     public void mouseReleased(MouseEvent e) {
         pointerDown = 0;
+        Logger.update("mouse.click", "no." + e.getButton());
     }
 
     @Override
@@ -76,5 +77,6 @@ public class Controller implements KeyListener, MouseMotionListener, MouseListen
     @Override
     public void mouseExited(MouseEvent e) {
         pointerDown = 0;
+        Logger.update("mouse.click", "no." + e.getButton());
     }
 }
