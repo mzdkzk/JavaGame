@@ -31,13 +31,15 @@ public class Start extends JPanel {
         JButton startButton = new JButton("Start!");
         startButton.setFont(new Font(MyClient.FONT_FAMILY, Font.PLAIN, 30));
         startButton.addActionListener(e -> {
-            if (addressField.getText().matches("(\\w|\\d|\\.)+:\\d+")) {
+            if (!addressField.getText().matches("(\\w|\\d|\\.)+:\\d+")) {
+                MyClient.showInfo("サーバーアドレスの形式が不正です");
+            } else if (userNameField.getText().length() > 20) {
+                MyClient.showInfo("ユーザー名は20文字までにしてください");
+            } else {
                 requestFocusInWindow();
                 MyClient.setAddress(addressField.getText());
                 MyClient.setUserName(userNameField.getText());
                 MyClient.changeComponent(new Game());
-            } else {
-                MyClient.showInfo("サーバーアドレスの形式が不正です");
             }
         });
         add(startButton);
