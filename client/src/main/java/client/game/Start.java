@@ -1,18 +1,11 @@
 package client.game;
 
 import client.MyClient;
-import client.game.resource.Loader;
-import client.game.resource.Resources;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Start extends JPanel {
-    private final String FONT_FAMILY = "Lucida Console";
 
     public Start() {
         setPreferredSize(new Dimension(600, 400));
@@ -21,7 +14,7 @@ public class Start extends JPanel {
         addSpace(30);
 
         JLabel titleLabel = new JLabel("Atan.io");
-        titleLabel.setFont(new Font(FONT_FAMILY, Font.BOLD, 96));
+        titleLabel.setFont(new Font(MyClient.FONT_FAMILY, Font.BOLD, 96));
         add(titleLabel);
         addSpace(10);
 
@@ -36,7 +29,7 @@ public class Start extends JPanel {
         addSpace(30);
 
         JButton startButton = new JButton("Start!");
-        startButton.setFont(new Font(FONT_FAMILY, Font.PLAIN, 30));
+        startButton.setFont(new Font(MyClient.FONT_FAMILY, Font.PLAIN, 30));
         startButton.addActionListener(e -> {
             if (addressField.getText().matches("(\\w|\\d|\\.)+:\\d+")) {
                 requestFocusInWindow();
@@ -57,7 +50,7 @@ public class Start extends JPanel {
     private JTextField createTextField(String defaultString) {
         JTextField field = new JTextField();
         field.setPreferredSize(new Dimension(600, 30));
-        field.setFont(new Font(FONT_FAMILY, Font.PLAIN, 20));
+        field.setFont(new Font(MyClient.FONT_FAMILY, Font.PLAIN, 20));
         field.setText(defaultString);
         field.setMaximumSize(field.getPreferredSize());
         return field;

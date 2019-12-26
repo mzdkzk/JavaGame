@@ -17,6 +17,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class MyClient extends JFrame {
+    public static final String FONT_FAMILY = "Lucida Console";
+
     private static Container container;
 
     private static Socket socket;

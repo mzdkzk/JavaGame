@@ -13,6 +13,7 @@ import client.game.resource.Resources;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.image.ImageObserver;
 
 public class Player extends Sprite implements Hittable {
     Event event;
@@ -37,6 +38,10 @@ public class Player extends Sprite implements Hittable {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public String getDisplayName() {
+        return event.getSenderName() + "[ID:" + event.getSenderId() + "]";
     }
 
     public boolean isUser() {
@@ -121,5 +126,13 @@ public class Player extends Sprite implements Hittable {
         Logger.update("player.cameraPos", "cx=" + getRelativePos().x + ",cy=" + getRelativePos().y);
         Logger.update("player.velocity", "dx=" + dx + ",dy=" + dy);
         Logger.update("player.degree", getDegree() + "℃");
+    }
+
+    @Override
+    public void draw(Graphics g, ImageObserver observer) {
+        super.draw(g, observer);
+        g.setFont(new Font(MyClient.FONT_FAMILY, Font.BOLD, 14));
+        Point relativePos = Game.camera.toRelativePos(x, y);
+        g.drawString(getDisplayName(), relativePos.x, relativePos.y - 30);
     }
 }
