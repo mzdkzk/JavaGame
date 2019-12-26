@@ -18,9 +18,13 @@ import java.net.UnknownHostException;
 
 public class MyClient extends JFrame {
     private static Container container;
+
     private static Socket socket;
     private static PrintWriter writer;
     private static BufferedReader reader;
+
+    private static String address;
+    private static String userName;
     private static int userId;
 
     private static PrintWriter getWriter() {
@@ -59,6 +63,18 @@ public class MyClient extends JFrame {
         return userId;
     }
 
+    public static void setAddress(String address) {
+        MyClient.address = address;
+    }
+
+    public static String getUserName() {
+        return userName;
+    }
+
+    public static void setUserName(String userName) {
+        MyClient.userName = userName;
+    }
+
     static void closeSocket() throws IOException {
         socket.close();
     }
@@ -80,6 +96,8 @@ public class MyClient extends JFrame {
     }
 
     public static void changeComponent(Component to) {
+        System.out.println(userName);
+        System.out.println(address);
         container.removeAll();
         container.add(to);
         container.revalidate();
@@ -90,7 +108,9 @@ public class MyClient extends JFrame {
 
     public static void connectServer() {
         try {
-            socket = new Socket("localhost", 10000);
+            String host = address.split(":")[0];
+            int port = Integer.parseInt(address.split(":")[1]);
+            socket = new Socket(host, port);
         } catch (UnknownHostException e) {
             showError("ホストのIPアドレスが判定できません", e.getMessage());
         } catch (IOException e) {
@@ -135,9 +155,12 @@ public class MyClient extends JFrame {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 
+    public static void showInfo(String message) {
+        showInfo(message, message);
+    }
+
     public static void showError(String title, String message) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
-        System.exit(1);
     }
 
     public static void showError(String message) {

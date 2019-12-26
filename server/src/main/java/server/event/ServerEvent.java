@@ -3,6 +3,7 @@ package server.event;
 public class ServerEvent {
     private ServerEventType type;
     private int senderId = 0;
+    private String senderName = "[Server]";
     private int objectId = senderId;
     private int x;
     private int y;
@@ -13,11 +14,12 @@ public class ServerEvent {
         String[] args = eventString.split(" ");
         type = ServerEventType.fromString(args[0]);
         senderId = Integer.parseInt(args[1]);
-        objectId = Integer.parseInt(args[2]);
-        x = Integer.parseInt(args[3]);
-        y = Integer.parseInt(args[4]);
-        angle = Double.parseDouble(args[5]);
-        unitSize = Integer.parseInt(args[6]);
+        senderName = args[2];
+        objectId = Integer.parseInt(args[3]);
+        x = Integer.parseInt(args[4]);
+        y = Integer.parseInt(args[5]);
+        angle = Double.parseDouble(args[6]);
+        unitSize = Integer.parseInt(args[7]);
     }
 
     public ServerEvent(ServerEventType type) {
@@ -50,6 +52,6 @@ public class ServerEvent {
 
     @Override
     public String toString() {
-        return String.format("%s %d %d %d %d %f %d", type.name(), senderId, objectId, x, y, angle, unitSize);
+        return String.format("%s %d %s %d %d %d %f %d", type.name(), senderId, senderName, objectId, x, y, angle, unitSize);
     }
 }
