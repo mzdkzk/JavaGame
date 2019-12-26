@@ -40,10 +40,6 @@ public class Player extends Sprite implements Hittable {
         this.event = event;
     }
 
-    public String getDisplayName() {
-        return event.getSenderName() + "[ID:" + event.getSenderId() + "]";
-    }
-
     public boolean isUser() {
         return event.getSenderId() == MyClient.getUserId();
     }
@@ -133,6 +129,8 @@ public class Player extends Sprite implements Hittable {
         super.draw(g, observer);
         g.setFont(new Font(MyClient.FONT_FAMILY, Font.BOLD, 14));
         Point relativePos = Game.camera.toRelativePos(x, y);
-        g.drawString(getDisplayName(), relativePos.x, relativePos.y - 30);
+        g.setColor(hp < 10 ? Color.RED : Color.BLACK);
+        g.drawString(event.getSenderName(), relativePos.x, relativePos.y - 50);
+        g.drawString("ID:" + event.getSenderId() + "/HP:" + hp, relativePos.x, relativePos.y - 30);
     }
 }
