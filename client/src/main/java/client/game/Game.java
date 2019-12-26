@@ -38,7 +38,6 @@ public class Game extends JPanel implements ActionListener {
         addKeyListener(controller);
         addMouseListener(controller);
         addMouseMotionListener(controller);
-        setFocusable(true);
 
         root.addChild(stage);
 
@@ -112,8 +111,12 @@ public class Game extends JPanel implements ActionListener {
                     }
                     break;
                 case DISCONNECT:
-                    joinedPlayers.remove(event.getSenderId());
-                    root.removeChild(sender);
+                    if (event.isOther()) {
+                        joinedPlayers.remove(event.getSenderId());
+                        root.removeChild(sender);
+                    } else {
+                        timer.stop();
+                    }
                     break;
             }
             event.isDone = true;

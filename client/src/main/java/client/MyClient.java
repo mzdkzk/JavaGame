@@ -3,6 +3,7 @@ package client;
 import client.event.Event;
 import client.event.EventType;
 import client.game.Game;
+import client.game.Start;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +17,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class MyClient extends JFrame {
+    private static Container container;
     private static Socket socket;
     private static PrintWriter writer;
     private static BufferedReader reader;
@@ -64,16 +66,26 @@ public class MyClient extends JFrame {
     private MyClient() {
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                MyClient.send(new Event(EventType.DISCONNECT));
+                if (getContentPane().getComponents()[0] instanceof Game) {
+                    MyClient.send(new Event(EventType.DISCONNECT));
+                }
             }
         });
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("MyGame");
         setSize(Game.camera.getWidth(), Game.camera.getHeight());
 
-        Game game = new Game();
-        Container container = getContentPane(); //フレームのペインを取得する
-        container.add(game);
+        container = getContentPane();
+        container.add(new Start());
+    }
+
+    public static void changeComponent(Component to) {
+        container.removeAll();
+        container.add(to);
+        container.revalidate();
+        container.repaint();
+        to.requestFocusInWindow();
+        to.setFocusable(true);
     }
 
     public static void connectServer() {

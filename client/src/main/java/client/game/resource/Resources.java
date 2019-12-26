@@ -10,6 +10,5 @@ public class Resources {
     public static final String UNIT = "unit.png";
     public static final String ITEM = "item.png";
     public static final String BOMB = "bomb.png";
-    public static final String TITLE = "title.png";
-    public static final String[] ALL = {PLAYER, BEAM, GRID, UNIT, ITEM, BOMB, TITLE};
+    public static final String[] ALL = {PLAYER, BEAM, GRID, UNIT, ITEM, BOMB};
 }
