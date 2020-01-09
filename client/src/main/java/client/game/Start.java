@@ -1,6 +1,7 @@
 package client.game;
 
 import client.MyClient;
+import client.game.resource.Resources;
 
 import javax.swing.*;
 import java.awt.*;
@@ -56,5 +57,11 @@ public class Start extends JPanel {
         field.setText(defaultString);
         field.setMaximumSize(field.getPreferredSize());
         return field;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(Game.loader.get(Resources.TITLE), 0, 0, this);
     }
 }
