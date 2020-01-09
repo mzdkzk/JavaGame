@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class Game extends JPanel implements ActionListener {
     public static Loader loader;
@@ -40,7 +41,10 @@ public class Game extends JPanel implements ActionListener {
 
         root.addChild(stage);
 
-        MyClient.send(new Event(EventType.UPDATE, 10, 10, 0, 3));
+        Random r = new Random();
+        int x = r.nextInt(800) - 400;
+        int y = r.nextInt(800) - 400;
+        MyClient.send(new Event(EventType.UPDATE, x, y, 0, 3));
 
         root.addChild(camera);
 
@@ -127,6 +131,7 @@ public class Game extends JPanel implements ActionListener {
                         MyClient.closeThread();
                         MyClient.changeComponent(new Start());
                         timer.stop();
+                        return;
                     }
                     break;
             }
