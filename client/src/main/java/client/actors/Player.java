@@ -53,8 +53,6 @@ public class Player extends Sprite implements Hittable {
         Logger.update("player" + event.getSenderId() + ".hp", hp + "/" + MAX_HP);
         if (hp <= 0 && !event.isOther()) {
             MyClient.send(new Event(EventType.DISCONNECT));
-            MyClient.showInfo("ゲームオーバー！", "HPが0になりました");
-            System.exit(0);
         }
     }
 

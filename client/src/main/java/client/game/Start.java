@@ -1,6 +1,7 @@
 package client.game;
 
 import client.MyClient;
+import client.game.resource.Loader;
 import client.game.resource.Resources;
 
 import javax.swing.*;
@@ -62,6 +63,6 @@ public class Start extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(Game.loader.get(Resources.TITLE), 0, 0, this);
+        g.drawImage(new Loader().get(Resources.TITLE), 0, 0, this);
     }
 }

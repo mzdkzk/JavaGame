@@ -42,6 +42,10 @@ class ClientThread extends Thread {
                     ItemThread.items.remove(event.getObjectId());
                 }
                 MyServer.sendAll(event.toString());
+
+                if (event.getType() == ServerEventType.DISCONNECT) {
+                    throw new Exception();
+                }
             }
         } catch (Exception e) {
             System.out.println("Disconnect from client No. " + id);

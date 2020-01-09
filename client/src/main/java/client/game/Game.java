@@ -19,20 +19,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Game extends JPanel implements ActionListener {
-    private static Element root = new Element();
-    private static ArrayList<Event> eventQueue = new ArrayList<>();
-
-    public static Loader loader = new Loader();
-    public static Controller controller = new Controller();
-    public static GameCamera camera = new GameCamera();
-    public static Stage stage = new Stage();
-
-    public static HashMap<Integer, Player> joinedPlayers = new HashMap<>();
+    public static Loader loader;
+    public static Controller controller;
+    public static GameCamera camera;
+    public static Stage stage;
+    public static HashMap<Integer, Player> joinedPlayers;
+    private static Element root;
+    private static ArrayList<Event> eventQueue;
 
     private Timer timer;
     private final int FPS = 30;
 
     public Game() {
+        initialize();
         MyClient.connectServer();
 
         addKeyListener(controller);
@@ -47,6 +46,16 @@ public class Game extends JPanel implements ActionListener {
 
         timer = new Timer(1000 / FPS, this);
         timer.start();
+    }
+
+    public void initialize() {
+        root = new Element();
+        eventQueue = new ArrayList<>();
+        loader = new Loader();
+        controller = new Controller();
+        camera = new GameCamera();
+        stage = new Stage();
+        joinedPlayers = new HashMap<>();
     }
 
     public static Player getPlayer() {
@@ -115,6 +124,8 @@ public class Game extends JPanel implements ActionListener {
                         joinedPlayers.remove(event.getSenderId());
                         root.removeChild(sender);
                     } else {
+                        MyClient.closeThread();
+                        MyClient.changeComponent(new Start());
                         timer.stop();
                     }
                     break;

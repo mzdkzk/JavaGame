@@ -24,10 +24,27 @@ public class MyClient extends JFrame {
     private static Socket socket;
     private static PrintWriter writer;
     private static BufferedReader reader;
+    private static LocalClientThread thread;
 
     private static String address;
     private static String userName;
     private static int userId;
+
+    private MyClient() {
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                if (getContentPane().getComponents()[0] instanceof Game) {
+                    MyClient.send(new Event(EventType.DISCONNECT));
+                }
+            }
+        });
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("MyGame");
+        setSize(800, 800);
+
+        container = getContentPane();
+        container.add(new Start());
+    }
 
     private static PrintWriter getWriter() {
         if (writer == null) {
@@ -81,25 +98,18 @@ public class MyClient extends JFrame {
         socket.close();
     }
 
-    private MyClient() {
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                if (getContentPane().getComponents()[0] instanceof Game) {
-                    MyClient.send(new Event(EventType.DISCONNECT));
-                }
-            }
-        });
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("MyGame");
-        setSize(Game.camera.getWidth(), Game.camera.getHeight());
-
-        container = getContentPane();
-        container.add(new Start());
+    private static void initialize() {
+        socket = null;
+        writer = null;
+        reader = null;
+        writer = null;
+        thread = null;
+        address = "";
+        userName = "";
+        userId = 0;
     }
 
     public static void changeComponent(Component to) {
-        System.out.println(userName);
-        System.out.println(address);
         container.removeAll();
         container.add(to);
         container.revalidate();
@@ -118,12 +128,18 @@ public class MyClient extends JFrame {
         } catch (IOException e) {
             showError("サーバーに接続できませんでした", e.getMessage());
         }
-        new LocalClientThread().start();
+        thread = new LocalClientThread();
+        thread.start();
         // LocalClientThreadの処理開始より先にIDを使用しないように
         while (true) {
             System.out.println("待機中…");
             if (userId != 0) break;
         }
+    }
+
+    public static void closeThread() {
+        thread.interrupt();
+        initialize();
     }
 
     public static void main(String[] args) {
