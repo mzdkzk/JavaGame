@@ -6,6 +6,8 @@ import client.game.resource.Resources;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.net.UnknownHostException;
 
 public class Start extends JPanel {
 
@@ -22,17 +24,19 @@ public class Start extends JPanel {
 
         add(new JLabel("サーバーアドレス"));
         JTextField addressField = createTextField("localhost:10000");
+        addressField.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
         add(addressField);
         addSpace(10);
 
         add(new JLabel("ユーザー名"));
         JTextField userNameField = createTextField("username");
+        userNameField.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
         add(userNameField);
         addSpace(30);
 
         JButton startButton = new JButton("Start!");
         startButton.setFont(new Font(MyClient.FONT_FAMILY, Font.PLAIN, 30));
-        startButton.addActionListener(e -> {
+        startButton.addActionListener(event -> {
             if (!addressField.getText().matches("(\\w|\\d|\\.)+:\\d+")) {
                 MyClient.showInfo("サーバーアドレスの形式が不正です");
             } else if (userNameField.getText().length() > 20) {
@@ -41,7 +45,13 @@ public class Start extends JPanel {
                 requestFocusInWindow();
                 MyClient.setAddress(addressField.getText());
                 MyClient.setUserName(userNameField.getText());
-                MyClient.changeComponent(new Game());
+                try {
+                    MyClient.changeComponent(new Game());
+                } catch (UnknownHostException e) {
+                    MyClient.showError("ホストのIPアドレスが判定できません", e.getMessage());
+                } catch (IOException e) {
+                    MyClient.showError("サーバーに接続できませんでした", e.getMessage());
+                }
             }
         });
         add(startButton);

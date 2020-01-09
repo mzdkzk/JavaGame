@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class MyClient extends JFrame {
     public static final String FONT_FAMILY = "Lucida Console";
@@ -102,7 +101,6 @@ public class MyClient extends JFrame {
         socket = null;
         writer = null;
         reader = null;
-        writer = null;
         thread = null;
         address = "";
         userName = "";
@@ -118,16 +116,11 @@ public class MyClient extends JFrame {
         to.setFocusable(true);
     }
 
-    public static void connectServer() {
-        try {
-            String host = address.split(":")[0];
-            int port = Integer.parseInt(address.split(":")[1]);
-            socket = new Socket(host, port);
-        } catch (UnknownHostException e) {
-            showError("ホストのIPアドレスが判定できません", e.getMessage());
-        } catch (IOException e) {
-            showError("サーバーに接続できませんでした", e.getMessage());
-        }
+    public static void connectServer() throws IOException {
+        String host = address.split(":")[0];
+        int port = Integer.parseInt(address.split(":")[1]);
+        socket = new Socket(host, port);
+
         thread = new LocalClientThread();
         thread.start();
         // LocalClientThreadの処理開始より先にIDを使用しないように

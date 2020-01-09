@@ -7,7 +7,6 @@ import client.actors.base.Sprite;
 import client.event.Event;
 import client.event.EventType;
 import client.game.input.Controller;
-import client.game.logging.Log;
 import client.game.logging.Logger;
 import client.game.resource.Loader;
 
@@ -15,6 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -31,7 +31,7 @@ public class Game extends JPanel implements ActionListener {
     private Timer timer;
     private final int FPS = 30;
 
-    public Game() {
+    public Game() throws IOException {
         initialize();
         MyClient.connectServer();
 
@@ -186,11 +186,11 @@ public class Game extends JPanel implements ActionListener {
             child.draw(g, this);
         }
 
-        g.setColor(Color.BLACK);
+        /*g.setColor(Color.BLACK);
         int logY = 0;
         for (Log log : Logger.getLogQueue()) {
             logY += 10;
             g.drawString(log.text(), 5, logY);
-        }
+        }*/
     }
 }
