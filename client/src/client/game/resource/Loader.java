@@ -13,7 +13,7 @@ public class Loader {
 
     public Loader() {
         for (String path : Resources.ALL) {
-            URL url = getClass().getClassLoader().getResource(path);
+            URL url = getClass().getClassLoader().getResource("resources/" + path);
             try {
                 BufferedImage image = ImageIO.read(url);
                 data.put(path, image);
