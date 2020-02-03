@@ -17,20 +17,20 @@ public class Start extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(50, 50, 0, 0));
         addSpace(30);
 
-        JLabel titleLabel = new JLabel("Atan.io");
-        titleLabel.setFont(new Font(MyClient.FONT_FAMILY, Font.BOLD, 96));
+        JLabel titleLabel = new JLabel("SimpleShooting");
+        titleLabel.setFont(new Font(MyClient.FONT_FAMILY, Font.BOLD, 70));
         add(titleLabel);
         addSpace(10);
 
         add(new JLabel("サーバーアドレス"));
         JTextField addressField = createTextField("localhost:10000");
-        addressField.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
+        addressField.setFont(new Font(Font.DIALOG, Font.PLAIN, 20));
         add(addressField);
         addSpace(10);
 
         add(new JLabel("ユーザー名"));
         JTextField userNameField = createTextField("username");
-        userNameField.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 20));
+        userNameField.setFont(new Font(Font.DIALOG, Font.PLAIN, 20));
         add(userNameField);
         addSpace(30);
 
